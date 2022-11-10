@@ -37,4 +37,10 @@ public class GlobaExceptionHandler {
 		ExceptionBody err=new ExceptionBody(LocalDateTime.now(),"Validation Error",me.getBindingResult().getFieldError().getDefaultMessage());
 		return new ResponseEntity<ExceptionBody>(err,HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler(MemberException.class)
+	public ResponseEntity<ExceptionBody> memberExceptionHandler(MemberException memberException , WebRequest webRequest) {
+		
+		return new ResponseEntity<ExceptionBody>(new ExceptionBody(LocalDateTime.now() , memberException.getMessage() , webRequest.getDescription(false)) , HttpStatus.BAD_REQUEST);
+	}
 }
