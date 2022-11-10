@@ -2,12 +2,14 @@ package com.ayushkaam.model;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,7 +17,9 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -47,13 +51,17 @@ public class Member {
 	
 	private boolean dose2 = false;
 	
-	private LocalDate dose1Date;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+	private LocalDate dose1Date = null;
 	
-	private LocalDate dose2Date;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+	private LocalDate dose2Date = null;
+	
 	
 	
 	@NotNull
 	@Past
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private LocalDate dateOfBirth;  
 	
 	@NotNull
@@ -66,9 +74,14 @@ public class Member {
 	private AadharCard aadharCard;
 	
 	
+	@NotNull
+	@Size(min = 6)
+	@Pattern(regexp = "^[a-z][A-Z][0-9]")
+	private String password;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Appointment> appointments;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "members", fetch = FetchType.EAGER)
+	private List<Appointment> appointments = new ArrayList<>();
 
 
 
