@@ -1,5 +1,16 @@
 package com.ayushkaam.repository;
 
-public interface AdminRepository {
+import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.ayushkaam.model.Admin;
+@Repository
+public interface AdminRepository extends JpaRepository<Admin, Integer>{
+
+	 public Optional<Admin> findByAdminId(Integer adminId);
+	 
+	public Optional<Admin> findByAdminName(String mobileNo);
+	
 }
