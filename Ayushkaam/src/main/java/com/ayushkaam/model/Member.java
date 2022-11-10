@@ -69,10 +69,25 @@ public class Member {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Appointment> appointments;
-	
 
-	
-	
-	
-	
+
+
+	public Member(@NotNull String memberName, @Pattern(regexp = "(^$[789]|[0-9]{10})") String mobileNumber,
+				  @NotNull @Pattern(regexp = "^(Male|Female|Others)") String gender,
+				  @NotNull @Past LocalDate dateOfBirth, @NotNull Address address,
+				  @NotNull AadharCard aadharCard) {
+		super();
+		this.memberName = memberName;
+		this.mobileNumber = mobileNumber;
+		this.gender = gender;
+		this.dateOfBirth = dateOfBirth;
+		this.address = address;
+		this.aadharCard = aadharCard;
+	}
+
+
+
+
+
+
 }
