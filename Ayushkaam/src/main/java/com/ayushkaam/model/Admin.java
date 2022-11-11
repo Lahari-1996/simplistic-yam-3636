@@ -3,6 +3,7 @@ package com.ayushkaam.model;
 
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +17,7 @@ import lombok.ToString;
 @ToString
 public class Admin {
      
+	@Id
 	private int adminId;
 	private String adminName;
 	private String adminPassword;

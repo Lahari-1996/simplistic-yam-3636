@@ -80,8 +80,8 @@ public class Member {
 	private String password;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "members", fetch = FetchType.EAGER)
-	private List<Appointment> appointments = new ArrayList<>();
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "members", fetch = FetchType.EAGER)
+//	private List<Appointment> appointments = new ArrayList<>();
 
 
 

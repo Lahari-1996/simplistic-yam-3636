@@ -83,34 +83,35 @@ public class AdminController {
 
 		return new ResponseEntity<List<Member>>(members , HttpStatus.OK);
 	}
-	 @PutMapping("/member")
-	    public ResponseEntity<Member> registerMemberHandler(@RequestBody Member member) throws MemberException {
-	        return new ResponseEntity<Member>(memberService.registerAsMember(member),HttpStatus.OK);
-	    }
+	 
 	
+	    
+	@GetMapping("/member/{id}")
+	public ResponseEntity<Member> getMemberByIdHandler(@PathVariable("id") Long id,@RequestParam String key) throws MemberException {
+	        
+		return new ResponseEntity<Member>(memberService.getMemberById(id, key),HttpStatus.OK);  
+	}
 
-	    @GetMapping("/member/{id}")
-	    public ResponseEntity<Member> getMemberByIdHandler(@PathVariable("id") Long id,@RequestParam String key) throws MemberException {
-	        return new ResponseEntity<Member>(memberService.getMemberById(id, key),HttpStatus.OK);
-	    }
-
-	    @GetMapping("/member/aadhar/{aadharNo}")
-	    public ResponseEntity<Member> getMemberByAadharHandler(@PathVariable("aadharNo") Long aadharNo) throws MemberException {
-	    return new ResponseEntity<Member>(memberService.getMemberByAadharNumber(aadharNo),HttpStatus.OK);
-	    }
+	    
+	@GetMapping("/member/aadhar/{aadharNo}")
+	public ResponseEntity<Member> getMemberByAadharHandler(@PathVariable("aadharNo") Long aadharNo , @RequestParam("token")String key) throws MemberException {
+	    
+		return new ResponseEntity<Member>(memberService.getMemberByAadharNumber(aadharNo , key),HttpStatus.OK);
+	    
+	}
 
 	  
 
-	    @DeleteMapping("/member/{id}")
-	    public ResponseEntity<String> deleteMemberRecordByIdHandler(@PathVariable("id") Long memberId) throws MemberException{
-	    	return new ResponseEntity<String>("Member record deleted successfully..."+memberService.deleteMemberById(memberId),HttpStatus.OK);
+	    
+	@DeleteMapping("/member/{id}")
+	    
+	public ResponseEntity<String> deleteMemberRecordByIdHandler(@PathVariable("id") Long memberId , @RequestParam("token")String key) throws MemberException{
+	    	
+		return new ResponseEntity<String>("Member record deleted successfully..."+memberService.deleteMemberById(memberId , key),HttpStatus.OK);
 	       
-	    }
+	    
+	}
 
-	    @PutMapping("/member/{key}")
-	    public ResponseEntity<Member> updateMemberHandler(@RequestBody Member member,@PathVariable("key") String key) throws MemberException {
-	       return new ResponseEntity<Member>(memberService.updateMemberDetails(member,key),HttpStatus.OK);
-	    }
-	
+
 
 }

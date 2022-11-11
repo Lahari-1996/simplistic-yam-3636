@@ -17,8 +17,8 @@ public interface MemberService {
 	
 	public Member getMemberById(Long memberId , String Key) throws MemberException;
 	
-	public Member getMemberByAadharNumber(Long aadharNumber)throws MemberException;
+	public Member getMemberByAadharNumber(Long aadharNumber , String key)throws MemberException;
 	
-	public Member deleteMemberById(Long memberId) throws MemberException;
+	public Member deleteMemberById(Long memberId , String key) throws MemberException;
 	
 }

@@ -2,8 +2,10 @@ package com.ayushkaam.service.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ayushkaam.exception.MemberException;
 import com.ayushkaam.model.Member;
@@ -12,6 +14,8 @@ import com.ayushkaam.repository.MemberDao;
 import com.ayushkaam.repository.MemberSessionRepository;
 import com.ayushkaam.service.MemberService;
 
+
+@Service
 public class MemberServiceImpl implements MemberService{
 	
 	@Autowired
@@ -23,30 +27,30 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public Member registerAsMember(Member member) throws MemberException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Member member2 = memberDao.save(member);
+		
+		if(member2 == null) throw new MemberException("Please Enter proper member details");
+		
+		return member2;
 	}
 
 	@Override
 	public Member updateMemberDetails(Member member, String key) throws MemberException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		 memberSessionRepo.findByToken(key).orElseThrow(() -> new MemberException("Invalid Key or User Not Logged In."));
+		
+		 memberDao.findById(member.getMemberId()).orElseThrow(() -> new MemberException("User Not Found"));
+
+		 return memberDao.save(member);
+		 
 	}
 
 	@Override
 	public List<Member> getAllMembers(String key) throws MemberException {
 		
 		
-		MemberSession member = memberSessionRepo.findByToken(key);
-		
-		
-		if(member == null) {
-			
-			
-			throw new MemberException("User Not Logged In, Please Log In First");
-		}
-		
-		
+		memberSessionRepo.findByToken(key).orElseThrow(() -> new MemberException("User Not Logged In, Please Log In First"));
 		
 		List<Member> members = new ArrayList<>();
 		
@@ -60,16 +64,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Member getMemberById(Long memberId, String key) throws MemberException {
 		
-		MemberSession memberSession = memberSessionRepo.findByToken(key);
-		
-		
-		if(memberSession == null) {
-			
-			
-			throw new MemberException("User Not Logged In, Please Log In First");
-		}
-		
-		
+		memberSessionRepo.findByToken(key).orElseThrow(() -> new MemberException("User Not Logged In, Please Log In First"));		
 		
 		Member member = null;
 		
@@ -79,7 +74,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public Member getMemberByAadharNumber(Long aadharNumber) throws MemberException {
+	public Member getMemberByAadharNumber(Long aadharNumber , String key) throws MemberException {
+		
+		memberSessionRepo.findByToken(key).orElseThrow(() -> new MemberException("User Not Logged In, Please Log In First"));
 		
 		Member member = null;
 		
@@ -89,9 +86,16 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public Member deleteMemberById(Long memberId) throws MemberException {
-		// TODO Auto-generated method stub
-		return null;
+	public Member deleteMemberById(Long memberId , String key) throws MemberException {
+	
+		
+		memberSessionRepo.findByToken(key).orElseThrow(() -> new MemberException("User Not Logged In, Please Log In First"));
+		
+		Member member = memberDao.findById(memberId).orElseThrow(() -> new MemberException("Invalid Member ID, Please Enter Valid Member ID"));
+		
+		memberDao.delete(member);
+		
+		return member;
 	}
 
 }

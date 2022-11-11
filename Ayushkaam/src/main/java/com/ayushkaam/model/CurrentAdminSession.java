@@ -1,6 +1,7 @@
 package com.ayushkaam.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +15,7 @@ import lombok.ToString;
 @ToString
 public class CurrentAdminSession {
 
+	@Id
 	private int adminId;
 	private String adminName;
 

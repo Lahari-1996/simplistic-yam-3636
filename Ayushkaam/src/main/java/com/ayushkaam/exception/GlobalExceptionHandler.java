@@ -38,6 +38,9 @@ public class GlobalExceptionHandler {
 		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), ex.getMessage(), req.getDescription(false));
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.NOT_FOUND);
 	}
+	
+	
+	
 	//ConversionFailedException
 	@ExceptionHandler(ConversionFailedException.class)
 	public ResponseEntity<MyErrorDetails> myIllegalHandler(ConversionFailedException me, WebRequest req) {
@@ -85,12 +88,28 @@ public class GlobalExceptionHandler {
 
 	}
 	
-
+	
 	@ExceptionHandler(MemberNotFoundException.class)
-	public ResponseEntity<MyErrorDetails> myIllegalHandler(MemberNotFoundException me, WebRequest req) {
+	public ResponseEntity<MyErrorDetails> myIllegalHandler1(MemberNotFoundException me, WebRequest req) {
 		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), me.getMessage(), req.getDescription(false));
 		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
 	}
+
+	@ExceptionHandler(MemberException.class)
+	public ResponseEntity<MyErrorDetails> myIllegalHandler(MemberException me, WebRequest req) {
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), me.getMessage(), req.getDescription(false));
+		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+	}
+	
+	
+	
+	@ExceptionHandler(LogInException.class)
+	public ResponseEntity<MyErrorDetails> myIllegalHandler(LogInException me, WebRequest req) {
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), me.getMessage(), req.getDescription(false));
+		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+	}
+	
+	
 }
 	
 
