@@ -29,10 +29,10 @@ Team Lead : Lahari Pattanayak (fw18_0834).
 Team Members :
 ***********
 
- 1)Yogesh Kumar Singh (fw18_0185).
+ 1)Yogesh Kumar Singh (fw18_0185)
 
- 2)Ganesh Ganta (fw19_0793).
+ 2)Ganesh Ganta (fw19_0793)
 
- 3)Rohan Mourya (fw19_0816).
+ 3)Rohan Mourya (fw19_0816)
 
- 4)Himanshu Sharma  (fw19_1055).
+ 4)Himanshu Sharma  (fw19_1055)
