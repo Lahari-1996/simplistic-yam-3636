@@ -11,21 +11,21 @@ import org.springframework.stereotype.Service;
 import com.ayushkaam.exception.VaccinationCenterException;
 import com.ayushkaam.model.MemberSession;
 import com.ayushkaam.model.VaccinationCenter;
-import com.ayushkaam.repository.MemberSessionRepository;
+import com.ayushkaam.repository.MemberSessionDao;
 import com.ayushkaam.repository.VaccinationCenterDao;
-import com.ayushkaam.service.VaccinCenterService;
+import com.ayushkaam.service.VaccinationCenterService;
 
 
 
 @Service
-public class VaccinCenterServiceImpl implements VaccinCenterService {
+public class VaccinCenterServiceImpl implements VaccinationCenterService {
 	
 	@Autowired
-	public MemberSessionRepository loggedMembersDetails;
+	public MemberSessionDao loggedMembersDetails;
 	
 	
 	@Autowired
-	public MemberSessionRepository loggedAdminDetails;
+	public MemberSessionDao loggedAdminDetails;
 	
 	
 	@Autowired

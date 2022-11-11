@@ -5,7 +5,7 @@ import java.util.List;
 import com.ayushkaam.exception.VaccinationCenterException;
 import com.ayushkaam.model.VaccinationCenter;
 
-public interface VaccinCenterService {
+public interface VaccinationCenterService {
 	
 	
 	public List<VaccinationCenter> getAllVaccineCenters(String key) throws VaccinationCenterException;

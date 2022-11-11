@@ -12,18 +12,18 @@ import com.ayushkaam.model.Admin;
 import com.ayushkaam.model.Member;
 import com.ayushkaam.model.MemberLogInDTO;
 import com.ayushkaam.model.MemberSession;
-import com.ayushkaam.repository.AdminRepository;
-import com.ayushkaam.repository.MemberSessionRepository;
+import com.ayushkaam.repository.AdminDao;
+import com.ayushkaam.repository.MemberSessionDao;
 import com.ayushkaam.service.AdminService;
 
 @Service
 public class AdminServiceImpl implements AdminService{
  
 	@Autowired
-	private AdminRepository adminRepo;
+	private AdminDao adminRepo;
 	
 	@Autowired
-	private MemberSessionRepository memberSessionRepository;
+	private MemberSessionDao memberSessionRepository;
 	
 	@Override
 	public MemberSession logIntoAccount(MemberLogInDTO memberLogInDTO) throws LogInException{

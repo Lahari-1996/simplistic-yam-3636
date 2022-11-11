@@ -12,7 +12,7 @@ import com.ayushkaam.exception.MemberException;
 import com.ayushkaam.model.Member;
 import com.ayushkaam.model.MemberSession;
 import com.ayushkaam.repository.MemberDao;
-import com.ayushkaam.repository.MemberSessionRepository;
+import com.ayushkaam.repository.MemberSessionDao;
 import com.ayushkaam.service.MemberLogInService;
 
 
@@ -21,7 +21,7 @@ public class MemberServiceLogInImpl implements MemberLogInService{
 
 	
 	@Autowired
-	private MemberSessionRepository memberSessionRepository;
+	private MemberSessionDao memberSessionRepository;
 	
 	
 	@Autowired

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.ayushkaam.model.Admin;
 import com.ayushkaam.model.MemberSession;
 @Repository
-public interface AdminRepository extends JpaRepository<Admin, Integer>{
+public interface AdminDao extends JpaRepository<Admin, Integer>{
 
 	 public Optional<Admin> findByAdminId(Integer adminId);
 	 

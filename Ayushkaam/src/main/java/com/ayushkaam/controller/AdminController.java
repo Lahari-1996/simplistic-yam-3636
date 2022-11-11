@@ -19,8 +19,8 @@ import com.ayushkaam.model.VaccineInventory;
 import com.ayushkaam.service.AdminService;
 import com.ayushkaam.service.AppointmentService;
 import com.ayushkaam.service.MemberService;
-import com.ayushkaam.service.VaccinCenterService;
-import com.ayushkaam.service.VaccinRegistrationService;
+import com.ayushkaam.service.VaccinationCenterService;
+import com.ayushkaam.service.VaccineRegistrationService;
 import com.ayushkaam.service.VaccinService;
 import com.ayushkaam.service.VaccinationInventoryService;
 
@@ -57,10 +57,10 @@ public class AdminController {
 	private VaccinationInventoryService vaccinationInventoryService;
 	
 	@Autowired
-	private VaccinCenterService vaccineCenterService;
+	private VaccinationCenterService vaccineCenterService;
 	
 	@Autowired
-	private VaccinRegistrationService vaccineRegistrationService;
+	private VaccineRegistrationService vaccineRegistrationService;
 	
 	@Autowired
 	private VaccinService vaccineService;
