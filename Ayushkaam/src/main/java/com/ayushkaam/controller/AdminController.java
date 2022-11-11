@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.ayushkaam.exception.MemberException;
 import com.ayushkaam.model.Member;
+import com.ayushkaam.model.VaccinationCenter;
 
 
 @RestController
@@ -71,7 +72,62 @@ public class AdminController {
 	
 	
 	
-//	Vaccine Centre
+//	VaccinationCenter
+	
+	
+	//To get all VaccinationCenters
+	@GetMapping("/vaccination_centers")
+    public ResponseEntity<List<VaccinationCenter>> getVaccineCenters(@RequestParam String key) {
+		
+        return new ResponseEntity<List<VaccinationCenter>>(vaccineCenterService.getAllVaccineCenters(key), HttpStatus.OK);
+   
+	}
+	
+	
+	//To Register a new VaccinationCenter.
+    @PostMapping("/vaccination_center")
+    public ResponseEntity<VaccinationCenter> addVaccineCenter(@RequestBody VaccinationCenter center,@RequestParam String key) {
+       
+    	
+    	return new ResponseEntity<VaccinationCenter>(vaccineCenterService.addVaccinationCenter(center,key),
+    			HttpStatus.CREATED); 
+   
+    
+    }
+    
+    
+    //To get a VaccinationCenter details by Id Of the Center.
+    @GetMapping("/vaccination_center/{id}")
+    public ResponseEntity<VaccinationCenter> addVaccineCenter(@PathVariable("id") Integer id,@RequestParam String key) {
+        
+    	
+    	return new ResponseEntity<VaccinationCenter>(vaccineCenterService.getvaccineCenter(id,key), HttpStatus.FOUND);
+   
+    }
+
+    
+    //To Update existing VaccinationCenter details. 	
+    @PutMapping("/vaccination_center")
+    public ResponseEntity<VaccinationCenter> updateVaccineCenter(@RequestBody VaccinationCenter center,@RequestParam String key) {
+        
+    	
+    	return new ResponseEntity<VaccinationCenter>(vaccineCenterService.updateVaccinationCenter(center,key), HttpStatus.OK);
+    
+    }
+
+    
+    //To delete an existing vaccinationCenter.
+    @DeleteMapping("/vaccination_center")
+    public ResponseEntity<String> deleteVaccineCenter(@RequestBody VaccinationCenter center, @RequestParam String key) {
+       
+    	
+    	return new ResponseEntity<>("vaccine center deleted : " + vaccineCenterService.deleteVaccineCenter(center,key),
+                HttpStatus.OK); 
+    
+    
+    }
+
+	
     
     
 //	members
@@ -111,6 +167,7 @@ public class AdminController {
 	       
 	    
 	}
+	
 
 
 
