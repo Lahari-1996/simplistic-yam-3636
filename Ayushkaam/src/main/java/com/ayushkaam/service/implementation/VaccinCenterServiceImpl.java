@@ -1,6 +1,7 @@
 package com.ayushkaam.service.implementation;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -8,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ayushkaam.exception.VaccinationCenterException;
-import com.ayushkaam.model.CurrentAdminSession;
 import com.ayushkaam.model.MemberSession;
 import com.ayushkaam.model.VaccinationCenter;
-import com.ayushkaam.repository.CurrentAdminSessionRepository;
 import com.ayushkaam.repository.MemberSessionRepository;
 import com.ayushkaam.repository.VaccinationCenterDao;
 import com.ayushkaam.service.VaccinCenterService;
@@ -26,7 +25,7 @@ public class VaccinCenterServiceImpl implements VaccinCenterService {
 	
 	
 	@Autowired
-	public CurrentAdminSessionRepository loggedAdminDetails;
+	public MemberSessionRepository loggedAdminDetails;
 	
 	
 	@Autowired
@@ -38,7 +37,7 @@ public class VaccinCenterServiceImpl implements VaccinCenterService {
 		
 		
 		Optional<MemberSession> member = loggedMembersDetails.findByToken(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByToken(key);
+		Optional<MemberSession> admin = loggedAdminDetails.findByToken(key);
 		
 		if(!member.isPresent() && !admin.isPresent()) {
 			
@@ -66,7 +65,7 @@ public class VaccinCenterServiceImpl implements VaccinCenterService {
 	public VaccinationCenter getvaccineCenter(Integer centerId, String key) throws VaccinationCenterException {
 		
 		Optional<MemberSession> member = loggedMembersDetails.findByToken(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByToken(key);
+		Optional<MemberSession> admin = loggedAdminDetails.findByToken(key);
 		
 		if(!member.isPresent() && !admin.isPresent()) {
 			
@@ -94,10 +93,9 @@ public class VaccinCenterServiceImpl implements VaccinCenterService {
 	@Override
 	public VaccinationCenter addVaccinationCenter(VaccinationCenter center, String key) throws VaccinationCenterException {
 		
-		Optional<MemberSession> member = loggedMembersDetails.findByToken(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByToken(key);
+		Optional<MemberSession> admin = loggedAdminDetails.findByToken(key);
 		
-		if(!member.isPresent() && !admin.isPresent()) {
+		if(!admin.isPresent()) {
 			
 			throw new VaccinationCenterException("unauthorized user....");
 			
@@ -119,10 +117,9 @@ public class VaccinCenterServiceImpl implements VaccinCenterService {
 	@Override
 	public VaccinationCenter updateVaccinationCenter(VaccinationCenter center, String key) throws VaccinationCenterException {
 		
-		Optional<MemberSession> member = loggedMembersDetails.findByToken(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByToken(key);
+		Optional<MemberSession> admin = loggedAdminDetails.findByToken(key);
 		
-		if(!member.isPresent() && !admin.isPresent()) {
+		if(admin.isPresent()) {
 			
 			throw new VaccinationCenterException("unauthorized user....");
 			
@@ -146,11 +143,9 @@ public class VaccinCenterServiceImpl implements VaccinCenterService {
 	@Override
 	public boolean deleteVaccineCenter(VaccinationCenter center, String key) throws VaccinationCenterException {
 		
+		Optional<MemberSession> admin = loggedAdminDetails.findByToken(key);
 		
-		Optional<MemberSession> member = loggedMembersDetails.findByToken(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByToken(key);
-		
-		if(!member.isPresent() && !admin.isPresent()) {
+		if(!admin.isPresent()) {
 			
 			throw new VaccinationCenterException("unauthorized user....");
 			

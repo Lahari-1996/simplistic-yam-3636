@@ -29,9 +29,11 @@ import com.ayushkaam.service.VaccinationInventoryService;
     
 import org.springframework.web.bind.annotation.PathVariable;
 
-
+import com.ayushkaam.exception.LogInException;
 import com.ayushkaam.exception.MemberException;
 import com.ayushkaam.model.Member;
+import com.ayushkaam.model.MemberLogInDTO;
+import com.ayushkaam.model.MemberSession;
 import com.ayushkaam.model.VaccinationCenter;
 
 
@@ -64,15 +66,24 @@ public class AdminController {
 	
 	
 	
-//	Vaccine Inventory
-
+	@PostMapping("/login")
+	public ResponseEntity<MemberSession> logInServiceHandler(@RequestBody MemberLogInDTO memberLogInDTO) throws LogInException {
+		
+		
+		
+		return new ResponseEntity<MemberSession>(adminService.logIntoAccount(memberLogInDTO), HttpStatus.OK);
+	}
 	
 	
-//	Vaccine
+	@GetMapping("/logout")
+	public ResponseEntity<String> logInServiceHandler(@PathVariable("key") String key) throws LogInException {
+		
+		
+		
+		return new ResponseEntity<String>(adminService.logOutAccount(key), HttpStatus.OK);
+	}
 	
 	
-	
-//	VaccinationCenter
 	
 	
 	//To get all VaccinationCenters

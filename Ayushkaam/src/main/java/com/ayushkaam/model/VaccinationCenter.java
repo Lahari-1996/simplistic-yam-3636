@@ -23,8 +23,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-
-
 @Entity
 public class VaccinationCenter {
 
