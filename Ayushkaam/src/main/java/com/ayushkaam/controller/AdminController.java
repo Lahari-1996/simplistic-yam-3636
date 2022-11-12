@@ -21,7 +21,7 @@ import com.ayushkaam.service.AppointmentService;
 import com.ayushkaam.service.MemberService;
 import com.ayushkaam.service.VaccinationCenterService;
 import com.ayushkaam.service.VaccineRegistrationService;
-import com.ayushkaam.service.VaccinService;
+import com.ayushkaam.service.VaccineService;
 import com.ayushkaam.service.VaccinationInventoryService;
 
 
@@ -63,7 +63,7 @@ public class AdminController {
 	private VaccineRegistrationService vaccineRegistrationService;
 	
 	@Autowired
-	private VaccinService vaccineService;
+	private VaccineService vaccineService;
 	
 	
 	
