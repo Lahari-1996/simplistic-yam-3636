@@ -3,6 +3,7 @@ package com.ayushkaam.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ import com.ayushkaam.model.MemberSession;
 import com.ayushkaam.repository.MemberDao;
 import com.ayushkaam.repository.MemberSessionDao;
 import com.ayushkaam.service.MemberService;
+
+import net.bytebuddy.utility.RandomString;
 
 
 @Service
@@ -27,6 +30,10 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public Member registerAsMember(Member member) throws MemberException {
+		
+		
+		member.getAadharCard().setFingerPrints(RandomString.make(6));
+		member.getAadharCard().setIrisscan(RandomString.make(6));
 		
 		Member member2 = memberDao.save(member);
 		

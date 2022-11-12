@@ -18,11 +18,9 @@ public class AadharCard {
 	private Long aadharNumber;
 	
 	
-	@NotNull
 	@Column(unique = true)
 	private String fingerPrints;
 	
-	@NotNull
 	@Column(unique = true)
 	private String irisscan;
 

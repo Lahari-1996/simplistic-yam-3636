@@ -51,17 +51,14 @@ public class Member {
 	
 	private boolean dose2 = false;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private LocalDate dose1Date = null;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private LocalDate dose2Date = null;
 	
 	
 	
 	@NotNull
 	@Past
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private LocalDate dateOfBirth;  
 	
 	@NotNull
@@ -76,12 +73,12 @@ public class Member {
 	
 	@NotNull
 	@Size(min = 6)
-	@Pattern(regexp = "^[a-z][A-Z][0-9]")
+//	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$")
 	private String password;
 	
 	
-//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "members", fetch = FetchType.EAGER)
-//	private List<Appointment> appointments = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "members", fetch = FetchType.EAGER)
+	private List<Appointment> appointments = new ArrayList<>();
 
 
 

@@ -1,5 +1,7 @@
 package com.ayushkaam.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +36,8 @@ public class MemberController {
 	
 	
 
-	@PutMapping("/")    
-	public ResponseEntity<Member> registerMemberHandler(@RequestBody Member member) throws MemberException {
+	@PostMapping("/")    
+	public ResponseEntity<Member> registerMemberHandler(@Valid @RequestBody Member member) throws MemberException {
 	        
 		return new ResponseEntity<Member>(memberService.registerAsMember(member),HttpStatus.OK);
 	}
@@ -43,7 +45,7 @@ public class MemberController {
 
 	
 	@GetMapping("/member/{id}")
-	public ResponseEntity<Member> getMemberByIdHandler(@PathVariable("id") Long id,@RequestParam String key) throws MemberException {
+	public ResponseEntity<Member> getMemberByIdHandler(@PathVariable("id") Long id,@RequestParam("token") String key) throws MemberException {
 	        
 		return new ResponseEntity<Member>(memberService.getMemberById(id, key),HttpStatus.OK);  
 	}
@@ -70,7 +72,7 @@ public class MemberController {
 	
     
 	@PutMapping("/member/{key}")
-	public ResponseEntity<Member> updateMemberHandler(@RequestBody Member member,@PathVariable("key") String key) throws MemberException {
+	public ResponseEntity<Member> updateMemberHandler(@Valid @RequestBody Member member,@PathVariable("key") String key) throws MemberException {
 	       
 		return new ResponseEntity<Member>(memberService.updateMemberDetails(member,key),HttpStatus.OK);
 	    
@@ -79,7 +81,7 @@ public class MemberController {
 	
 	
 	@PostMapping("/login")
-	public ResponseEntity<MemberSession> userLogInHandler(@RequestBody MemberLogInDTO memberLogInDTO) throws LogInException{
+	public ResponseEntity<MemberSession> userLogInHandler(@Valid @RequestBody MemberLogInDTO memberLogInDTO) throws LogInException{
 		
 		
 		return new ResponseEntity<MemberSession>(logInService.loginAsMember(memberLogInDTO.getMobileNumber(), memberLogInDTO.getPassword()) , HttpStatus.OK);

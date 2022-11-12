@@ -31,7 +31,7 @@ import com.ayushkaam.service.VaccineRegistrationService;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
-
+//
 	@Autowired
 	private AppointmentDao appointmentDao;
 
@@ -100,6 +100,12 @@ public class AppointmentServiceImpl implements AppointmentService {
 	public boolean deleteAppointment(Long bookingId, String key) throws AppointmentException {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Appointment getAppointmentByMobileNumber(String mobileNumber) throws AppointmentNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

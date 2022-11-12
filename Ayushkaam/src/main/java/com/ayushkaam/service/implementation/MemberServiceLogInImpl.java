@@ -38,7 +38,13 @@ public class MemberServiceLogInImpl implements MemberLogInService{
 		
 		Member member = memberDao.findByMobileNumber(mobileNumber).orElseThrow(() -> new LogInException("User Not Registered, please register first"));
 		
-		if(member.getPassword() != password) throw new LogInException("Wrong Password Please Enter Correct Password");
+		
+		System.out.println(password + " "  + member.getPassword());
+		
+		if(!member.getPassword().equals(password)) {
+			
+			throw new LogInException("Wrong Password Please Enter Correct Password");
+		}
 		
 		
 		MemberSession memberSession = new MemberSession();

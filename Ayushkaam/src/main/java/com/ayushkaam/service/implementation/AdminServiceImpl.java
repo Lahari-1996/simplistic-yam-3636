@@ -36,7 +36,7 @@ public class AdminServiceImpl implements AdminService{
 		
 		Admin admin = adminRepo.findByMobileNumber(memberLogInDTO.getMobileNumber()).orElseThrow(() -> new LogInException("User Not Registered, please register first"));
 		
-		if(admin.getAdminPassword() != memberLogInDTO.getPassword()) throw new LogInException("Wrong Password Please Enter Correct Password");
+		if(!admin.getAdminPassword().equals(memberLogInDTO.getPassword())) throw new LogInException("Wrong Password Please Enter Correct Password");
 		
 		
 		MemberSession memberSession = new MemberSession();
