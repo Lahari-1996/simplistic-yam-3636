@@ -2,7 +2,9 @@
 
 
 Project Name : Ayushkaam (Wishing for long life)
-This application will facilitate the citizen with an option to register and schedule the vaccination session online in Centers of their choice. The Citizen self-registration module will ensure fool-proof identification of deserving candidates for receiving the vaccines.
+This application will facilitate the citizen with an option to register and schedule the vaccination session 
+online in Centers of their choice. The Citizen self-registration module will ensure fool-proof identification
+of deserving candidates for receiving the vaccines.
 
 What? -> Covid-19 Vaccination 
 Why? -> To handhold the citizens to register and schedule an appointment for vaccination 
@@ -20,8 +22,11 @@ Swagger
 Features:
 --------
 -> Can Log in/Log out of the system
+
 -> Can check the availability of vaccine, vaccine center and and slot accordingly
+
 -> Can register for vaccine and Can book the slot
+
 -> Can check the status
 
 Team Lead : Lahari Pattanayak (fw18_0834).

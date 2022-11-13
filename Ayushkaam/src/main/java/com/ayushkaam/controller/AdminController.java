@@ -18,10 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ayushkaam.model.VaccineInventory;
 import com.ayushkaam.service.AdminService;
 import com.ayushkaam.service.AppointmentService;
+import com.ayushkaam.service.MemberLogInService;
 import com.ayushkaam.service.MemberService;
 import com.ayushkaam.service.VaccinationCenterService;
 import com.ayushkaam.service.VaccineRegistrationService;
-import com.ayushkaam.service.VaccinService;
+import com.ayushkaam.service.VaccineService;
 import com.ayushkaam.service.VaccinationInventoryService;
 
 
@@ -32,6 +33,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.ayushkaam.exception.LogInException;
 import com.ayushkaam.exception.MemberException;
 import com.ayushkaam.exception.VaccinationCenterException;
+import com.ayushkaam.model.Admin;
+import com.ayushkaam.model.AdminDTO;
 import com.ayushkaam.model.Member;
 import com.ayushkaam.model.MemberLogInDTO;
 import com.ayushkaam.model.MemberSession;
@@ -51,7 +54,8 @@ public class AdminController {
 	@Autowired
 	private AppointmentService appointmentService;
 	
-	
+	@Autowired
+	private MemberLogInService memberLogInService;
 	
 	@Autowired
 	private VaccinationInventoryService vaccinationInventoryService;
@@ -63,25 +67,25 @@ public class AdminController {
 	private VaccineRegistrationService vaccineRegistrationService;
 	
 	@Autowired
-	private VaccinService vaccineService;
+	private VaccineService vaccineService;
 	
 	
 	
-	@PostMapping("/login")
-	public ResponseEntity<MemberSession> logInServiceHandler(@RequestBody MemberLogInDTO memberLogInDTO) throws LogInException {
+	@PostMapping("/member/login")
+	public ResponseEntity<MemberSession> memberLogInHandler(@RequestBody MemberLogInDTO memberLogInDTO) throws LogInException {
 		
 		
 		
-		return new ResponseEntity<MemberSession>(adminService.logIntoAccount(memberLogInDTO), HttpStatus.OK);
+		return new ResponseEntity<MemberSession>(memberLogInService.loginAsMember(memberLogInDTO), HttpStatus.OK);
 	}
 	
 	
-	@GetMapping("/logout")
-	public ResponseEntity<String> logInServiceHandler(@PathVariable("key") String key) throws LogInException {
+	@GetMapping("/member/logout")
+	public ResponseEntity<String> memberLogOutHandler(@PathVariable("key") String key) throws LogInException {
 		
 		
 		
-		return new ResponseEntity<String>(adminService.logOutAccount(key), HttpStatus.OK);
+		return new ResponseEntity<String>(memberLogInService.logOutMember(key), HttpStatus.OK);
 	}
 	
 	
@@ -89,7 +93,7 @@ public class AdminController {
 	
 	//To get all VaccinationCenters
 	@GetMapping("/vaccination_centers")
-    public ResponseEntity<List<VaccinationCenter>> getVaccineCenters(@RequestParam String key) throws VaccinationCenterException{
+    public ResponseEntity<List<VaccinationCenter>> getVaccineCenters(@RequestParam("token") String key) throws VaccinationCenterException{
 		
         return new ResponseEntity<List<VaccinationCenter>>(vaccineCenterService.getAllVaccineCenters(key), HttpStatus.OK);
    
@@ -98,7 +102,7 @@ public class AdminController {
 	
 	//To Register a new VaccinationCenter.
     @PostMapping("/vaccination_center")
-    public ResponseEntity<VaccinationCenter> addVaccineCenter(@RequestBody VaccinationCenter center,@RequestParam String key) throws VaccinationCenterException{
+    public ResponseEntity<VaccinationCenter> addVaccineCenter(@RequestBody VaccinationCenter center,@RequestParam("token") String key) throws VaccinationCenterException{
        
     	
     	return new ResponseEntity<VaccinationCenter>(vaccineCenterService.addVaccinationCenter(center,key),
@@ -120,7 +124,7 @@ public class AdminController {
     
     //To Update existing VaccinationCenter details. 	
     @PutMapping("/vaccination_center")
-    public ResponseEntity<VaccinationCenter> updateVaccineCenter(@RequestBody VaccinationCenter center,@RequestParam String key) throws VaccinationCenterException {
+    public ResponseEntity<VaccinationCenter> updateVaccineCenter(@RequestBody VaccinationCenter center,@RequestParam("token") String key) throws VaccinationCenterException {
         
     	
     	return new ResponseEntity<VaccinationCenter>(vaccineCenterService.updateVaccinationCenter(center,key), HttpStatus.OK);
@@ -154,14 +158,14 @@ public class AdminController {
 	 
 	
 	    
-	@GetMapping("/member/{id}")
-	public ResponseEntity<Member> getMemberByIdHandler(@PathVariable("id") Long id,@RequestParam String key) throws MemberException {
+	@GetMapping("/members/{id}")
+	public ResponseEntity<Member> getMemberByIdHandler(@PathVariable("id") Long id,@RequestParam("token") String key) throws MemberException {
 	        
 		return new ResponseEntity<Member>(memberService.getMemberById(id, key),HttpStatus.OK);  
 	}
 
 	    
-	@GetMapping("/member/aadhar/{aadharNo}")
+	@GetMapping("/members/aadhar/{aadharNo}")
 	public ResponseEntity<Member> getMemberByAadharHandler(@PathVariable("aadharNo") Long aadharNo , @RequestParam("token")String key) throws MemberException {
 	    
 		return new ResponseEntity<Member>(memberService.getMemberByAadharNumber(aadharNo , key),HttpStatus.OK);
@@ -171,7 +175,7 @@ public class AdminController {
 	  
 
 	    
-	@DeleteMapping("/member/{id}")
+	@DeleteMapping("/members/{id}")
 	    
 	public ResponseEntity<String> deleteMemberRecordByIdHandler(@PathVariable("id") Long memberId , @RequestParam("token")String key) throws MemberException{
 	    	
@@ -180,7 +184,31 @@ public class AdminController {
 	    
 	}
 	
+	// create admin and update admin
+		@PostMapping("/admin")    
+		public ResponseEntity<Admin> createAdminHandler(@RequestBody Admin admin)  {
+		        
+			return new ResponseEntity<Admin>(adminService.createAdmin(admin),HttpStatus.OK);
+		}
+		
+		@PutMapping("/admin")
+		public ResponseEntity<Admin> updateAdminHandler(@RequestBody Admin admin)  {
+		       
+			return new ResponseEntity<Admin>(adminService.updateAdmin(admin),HttpStatus.OK);
+		    
+		}
 
 
-
+//Log In and Log Out Admin
+		
+		@PostMapping("/admin/login")
+		public ResponseEntity<String> adminLogInHandler(@RequestBody Admin admin) throws LogInException{
+			return new ResponseEntity<String>("Admin Logged In Successfully..."+adminService.logIntoAccount(admin) , HttpStatus.OK);
+		}
+		
+		@GetMapping("/admin/logout/{id}")
+		public ResponseEntity<String> adminLogOutHandler(@PathVariable("id") Integer adminId,@RequestParam("password") String password ) throws LogInException{
+			return new ResponseEntity<String>("Admin Logged Out"+adminService.logOutAccount(adminId,password) , HttpStatus.OK);
+		}
+	
 }

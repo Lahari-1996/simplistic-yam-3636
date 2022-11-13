@@ -20,9 +20,7 @@ import lombok.ToString;
 public class Admin {
      
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer adminId;
-	private String mobileNumber;
 	private String adminName;
 	private String adminPassword;
 	

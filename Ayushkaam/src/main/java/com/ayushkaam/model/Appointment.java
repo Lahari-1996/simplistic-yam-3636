@@ -45,10 +45,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 		
 		@JsonIgnore
 		@ManyToOne(cascade = CascadeType.ALL)
-		Member members;
+		private Member members;
 
 		@ManyToOne(cascade = CascadeType.ALL)
-		VaccinationCenter vaccinationCenter;
+		private VaccinationCenter vaccinationCenter;
 
 		public long getBookingId() {
 			return bookingId;

@@ -12,5 +12,6 @@ import com.ayushkaam.model.Member;
 
 @Repository
 public interface AppointmentDao extends JpaRepository<Appointment, Long> {
-	List<Appointment> findByMember(String mobileNumber);
+	
+	public List<Appointment> findByMembers(String mobileNumber);
 }
