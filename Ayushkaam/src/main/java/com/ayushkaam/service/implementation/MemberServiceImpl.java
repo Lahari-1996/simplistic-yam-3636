@@ -87,7 +87,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		Member member = null;
 		
-		member = memberDao.findById(aadharNumber).orElseThrow(() -> new MemberException("Invalid Aadhar Number, Please Enter Valid Aadhar Number"));
+		member = memberDao.findByAadharNumber(aadharNumber).orElseThrow(() -> new MemberException("Invalid Aadhar Number, Please Enter Valid Aadhar Number"));
 		
 		return member;
 	}

@@ -1,5 +1,6 @@
 package com.ayushkaam.repository;
 
+import java.lang.StackWalker.Option;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +15,6 @@ public interface MemberDao extends JpaRepository<Member, Integer>{
 
 	
 	public  Optional<Member> findByMobileNumber(String mobileNumber);
+	
+	public Optional<Member> findByAadharNumber(Long aadharNumber);
 }
