@@ -22,6 +22,7 @@ public class Admin {
 	@Id
 	private Integer adminId;
 	private String adminName;
+	private String adminMobile;
 	private String adminPassword;
 	
 }
