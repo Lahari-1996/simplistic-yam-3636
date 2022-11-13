@@ -40,7 +40,7 @@ public class VaccinationInventoryServiceImpl implements VaccinationInventoryServ
 	
 	
 	@Override
-	public VaccineInventory saveVaccineInventory(VaccineInventory vaccineInv, String key) {
+	public VaccineInventory saveVaccineInventory(VaccineInventory vaccineInv, String key) throws VaccineInventoryNotFoundException {
 		
         Optional<Appointment> optCurrAdmin = appointmentDAO.findByMembers(key);
 		
@@ -48,7 +48,7 @@ public class VaccinationInventoryServiceImpl implements VaccinationInventoryServ
 			throw new RuntimeException("Unauthorised access");
 		}
 		
-		Optional<VaccineInventory> opt = vaccineInvDao.findById(vaccineInvDao.getInventoryId());
+		Optional<VaccineInventory> opt = vaccineInvDao.findById(vaccineInv.getInventoryId());
 		if (opt.isPresent()) {
 			throw new VaccineInventoryNotFoundException("VaccineInventory already exists!");
 		}

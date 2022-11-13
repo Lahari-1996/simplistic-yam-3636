@@ -3,11 +3,12 @@ package com.ayushkaam.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.ayushkaam.exception.VaccineInventoryNotFoundException;
 import com.ayushkaam.model.VaccineInventory;
 
 public interface VaccinationInventoryService {
 	
-	public VaccineInventory saveVaccineInventory(VaccineInventory vaccineInv, String key);
+	public VaccineInventory saveVaccineInventory(VaccineInventory vaccineInv, String key) throws VaccineInventoryNotFoundException;
 
 	public List<VaccineInventory> allVaccineInventory(String key);
 	
