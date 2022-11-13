@@ -39,8 +39,8 @@ public class VaccinRegistrationServiceImpl implements VaccineRegistrationService
 	@Override
 	public List<VaccineRegistration> allVaccineRegistration(String key) {
 		
-		Optional<MemberSession> user = loggedMembersDetails.findByToken(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByToken(key);
+		Optional<MemberSession> user = loggedMembersDetails.findByMobileNumber(key);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
 
 		
 		if(!user.isPresent() && !admin.isPresent()) { 
@@ -64,10 +64,10 @@ public class VaccinRegistrationServiceImpl implements VaccineRegistrationService
 	}
 
 	@Override
-	public VaccineRegistration getVaccineRegistration(String mobileNo, String key) { 
+	public VaccineRegistration getVaccineRegistration( String key) { 
 		
-		Optional<MemberSession> user = loggedMembersDetails.findByToken(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByToken(key);
+		Optional<MemberSession> user = loggedMembersDetails.findByMobileNumber(key);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
 
 		
 			if(!user.isPresent() && !admin.isPresent() ){ 
@@ -76,11 +76,11 @@ public class VaccinRegistrationServiceImpl implements VaccineRegistrationService
 			
 			}
 			
-			Optional<VaccineRegistration> registration = vaccinRegistrationRepo.findByMobileNo(mobileNo);
+			Optional<VaccineRegistration> registration = vaccinRegistrationRepo.findByMobileNo(key);
 			
 			if(!registration.isPresent()) {
 				
-				throw new VaccineRegistrationException("No Registrations Found with : "+mobileNo);
+				throw new VaccineRegistrationException("No Registrations Found with : "+key);
 				
 			}
 			
@@ -91,11 +91,11 @@ public class VaccinRegistrationServiceImpl implements VaccineRegistrationService
 	}
 
 	@Override
-	public Member getRegisteredMemberByMobileNumber (String mobileNo, String key) {
+	public Member getRegisteredMemberByMobileNumber (String mobileNo) {
 		
 		
-		Optional<MemberSession> user = loggedMembersDetails.findByToken(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByToken(key);
+		Optional<MemberSession> user = loggedMembersDetails.findByMobileNumber(mobileNo);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(mobileNo);
 
 		
 		if( !user.isPresent() && !admin.isPresent() ) { 
@@ -125,10 +125,10 @@ public class VaccinRegistrationServiceImpl implements VaccineRegistrationService
 	
 
 	@Override
-	public VaccineRegistration addVaccineRegistration(String mobileNo, String key) {
+	public VaccineRegistration addVaccineRegistration( String key) { 
 		
-		Optional<MemberSession> user = loggedMembersDetails.findByToken(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByToken(key);
+		Optional<MemberSession> user = loggedMembersDetails.findByMobileNumber(key); 
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
 
 		
 			if(!user.isPresent() && !admin.isPresent() ) { 
@@ -151,9 +151,9 @@ public class VaccinRegistrationServiceImpl implements VaccineRegistrationService
 			
 			VaccineRegistration newRegister = new VaccineRegistration();
 			
-			newRegister.setMobileNo(mobileNo);
+			newRegister.setMobileNo(key);
 			newRegister.setDateofregistration(LocalDate.now());
-			newRegister.setMember( memberDetails.findByMobileNumber(mobileNo).get());
+			newRegister.setMember( memberDetails.findByMobileNumber(key).get());
 			
 		
 			
@@ -163,11 +163,11 @@ public class VaccinRegistrationServiceImpl implements VaccineRegistrationService
 	}
 
 	@Override
-	public VaccineRegistration updateVaccineRegistration(String mobileNo, String newMobileNo, String key) {
+	public VaccineRegistration updateVaccineRegistration(String mobileNo, String newMobileNo) {
 		
 		
-		Optional<MemberSession> user = loggedMembersDetails.findByToken(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByToken(key);
+		Optional<MemberSession> user = loggedMembersDetails.findByMobileNumber(mobileNo);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(mobileNo);
 
 		
 			if(!user.isPresent() && !admin.isPresent() ) { 
@@ -197,11 +197,11 @@ public class VaccinRegistrationServiceImpl implements VaccineRegistrationService
 	}
 
 	@Override
-	public boolean deleteVaccineRegistration(String mobileNo, String key) {
+	public boolean deleteVaccineRegistration(String mobileNo ) {
 		
 		
-		Optional<MemberSession> user = loggedMembersDetails.findByToken(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByToken(key);
+		Optional<MemberSession> user = loggedMembersDetails.findByMobileNumber(mobileNo);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(mobileNo);
 
 		
 			if(!user.isPresent() && !admin.isPresent()) { 

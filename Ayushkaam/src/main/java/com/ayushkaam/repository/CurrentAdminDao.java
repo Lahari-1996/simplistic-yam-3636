@@ -13,4 +13,6 @@ public interface CurrentAdminDao extends JpaRepository<CurrentAdminSession, Inte
 	
 	 
 	public Optional<CurrentAdminSession> findByAdminName(String adminName);
+	public Optional<CurrentAdminSession> findByAdminMobile(String mobileNumber ); 
+	
 }
