@@ -107,7 +107,7 @@ public class MemberController {
 
 	
 	@GetMapping("/member/{id}")
-	public ResponseEntity<Member> getMemberByIdHandler(@PathVariable("id") Long id,@RequestParam("token") String key) throws MemberException {
+	public ResponseEntity<Member> getMemberByIdHandler(@PathVariable("id") Integer id,@RequestParam("token") String key) throws MemberException {
 	        
 		return new ResponseEntity<Member>(memberService.getMemberById(id, key),HttpStatus.OK);  
 	}
@@ -125,7 +125,7 @@ public class MemberController {
 	    
 	@DeleteMapping("/member/{id}")
 	    
-	public ResponseEntity<String> deleteMemberRecordByIdHandler(@PathVariable("id") Long memberId , @RequestParam("token")String key) throws MemberException{
+	public ResponseEntity<String> deleteMemberRecordByIdHandler(@PathVariable("id") Integer memberId , @RequestParam("token")String key) throws MemberException{
 	    	
 		return new ResponseEntity<String>("Member record deleted successfully..."+memberService.deleteMemberById(memberId , key),HttpStatus.OK);
 	       
