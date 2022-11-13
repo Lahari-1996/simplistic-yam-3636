@@ -8,9 +8,9 @@ import com.ayushkaam.model.Appointment;
 
 public interface AppointmentService {
 
-	//public List<Appointment> getAllAppointment()throws AppointmentException;
+	public List<Appointment> getAllAppointment(String key)throws AppointmentException;
 
-	public Appointment getAppointmentByMobileNumber(String mobileNumber)throws AppointmentNotFoundException;
+	public Appointment getAppointmentByBookingId(Long bookingId,String key)throws AppointmentNotFoundException;
 
 	public Appointment addAppointment(Appointment app, Integer memId,String key)throws AppointmentException;
 

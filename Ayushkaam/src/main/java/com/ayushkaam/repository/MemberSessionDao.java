@@ -11,6 +11,7 @@ import com.ayushkaam.model.MemberSession;
 @Repository
 public interface MemberSessionDao extends JpaRepository<MemberSession, Long>{
 
+	
 	public Optional<MemberSession> findByToken(String token);
 	
 	public  Optional<MemberSession> findByMobileNumber(String mobileNumber);
