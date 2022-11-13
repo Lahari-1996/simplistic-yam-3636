@@ -201,12 +201,12 @@ public class AdminController {
 
 //Log In and Log Out Admin
 		
-		@PostMapping("/admin/login")
+		@PostMapping("/login")
 		public ResponseEntity<String> adminLogInHandler(@RequestBody Admin admin) throws LogInException{
 			return new ResponseEntity<String>("Admin Logged In Successfully..."+adminService.logIntoAccount(admin) , HttpStatus.OK);
 		}
 		
-		@GetMapping("/admin/logout/{id}")
+		@GetMapping("/{id}")
 		public ResponseEntity<String> adminLogOutHandler(@PathVariable("id") Integer adminId,@RequestParam("password") String password ) throws LogInException{
 			return new ResponseEntity<String>("Admin Logged Out"+adminService.logOutAccount(adminId,password) , HttpStatus.OK);
 		}
