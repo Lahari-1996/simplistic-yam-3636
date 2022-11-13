@@ -22,8 +22,11 @@ Swagger
 Features:
 --------
 -> Can Log in/Log out of the system
+
 -> Can check the availability of vaccine, vaccine center and and slot accordingly
+
 -> Can register for vaccine and Can book the slot
+
 -> Can check the status
 
 Team Lead : Lahari Pattanayak (fw18_0834).
