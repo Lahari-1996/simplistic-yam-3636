@@ -89,7 +89,7 @@ public class AdminController {
 	
 	//To get all VaccinationCenters
 	@GetMapping("/vaccination_centers")
-    public ResponseEntity<List<VaccinationCenter>> getVaccineCenters(@RequestParam String key) throws VaccinationCenterException{
+    public ResponseEntity<List<VaccinationCenter>> getVaccineCenters(@RequestParam("token") String key) throws VaccinationCenterException{
 		
         return new ResponseEntity<List<VaccinationCenter>>(vaccineCenterService.getAllVaccineCenters(key), HttpStatus.OK);
    
@@ -98,7 +98,7 @@ public class AdminController {
 	
 	//To Register a new VaccinationCenter.
     @PostMapping("/vaccination_center")
-    public ResponseEntity<VaccinationCenter> addVaccineCenter(@RequestBody VaccinationCenter center,@RequestParam String key) throws VaccinationCenterException{
+    public ResponseEntity<VaccinationCenter> addVaccineCenter(@RequestBody VaccinationCenter center,@RequestParam("token") String key) throws VaccinationCenterException{
        
     	
     	return new ResponseEntity<VaccinationCenter>(vaccineCenterService.addVaccinationCenter(center,key),
@@ -120,7 +120,7 @@ public class AdminController {
     
     //To Update existing VaccinationCenter details. 	
     @PutMapping("/vaccination_center")
-    public ResponseEntity<VaccinationCenter> updateVaccineCenter(@RequestBody VaccinationCenter center,@RequestParam String key) throws VaccinationCenterException {
+    public ResponseEntity<VaccinationCenter> updateVaccineCenter(@RequestBody VaccinationCenter center,@RequestParam("token") String key) throws VaccinationCenterException {
         
     	
     	return new ResponseEntity<VaccinationCenter>(vaccineCenterService.updateVaccinationCenter(center,key), HttpStatus.OK);
@@ -154,14 +154,14 @@ public class AdminController {
 	 
 	
 	    
-	@GetMapping("/member/{id}")
-	public ResponseEntity<Member> getMemberByIdHandler(@PathVariable("id") Long id,@RequestParam String key) throws MemberException {
+	@GetMapping("/members/{id}")
+	public ResponseEntity<Member> getMemberByIdHandler(@PathVariable("id") Long id,@RequestParam("token") String key) throws MemberException {
 	        
 		return new ResponseEntity<Member>(memberService.getMemberById(id, key),HttpStatus.OK);  
 	}
 
 	    
-	@GetMapping("/member/aadhar/{aadharNo}")
+	@GetMapping("/members/aadhar/{aadharNo}")
 	public ResponseEntity<Member> getMemberByAadharHandler(@PathVariable("aadharNo") Long aadharNo , @RequestParam("token")String key) throws MemberException {
 	    
 		return new ResponseEntity<Member>(memberService.getMemberByAadharNumber(aadharNo , key),HttpStatus.OK);
@@ -171,7 +171,7 @@ public class AdminController {
 	  
 
 	    
-	@DeleteMapping("/member/{id}")
+	@DeleteMapping("/members/{id}")
 	    
 	public ResponseEntity<String> deleteMemberRecordByIdHandler(@PathVariable("id") Long memberId , @RequestParam("token")String key) throws MemberException{
 	    	
