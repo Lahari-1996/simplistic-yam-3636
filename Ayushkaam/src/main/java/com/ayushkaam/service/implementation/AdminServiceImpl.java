@@ -36,7 +36,7 @@ public class AdminServiceImpl implements AdminService{
 				return "Admin already logged in with this Name";
 			}
 			else if(admin1.getAdminPassword().equals(admin.getAdminPassword())) {
-				CurrentAdminSession currentAdminSession=new CurrentAdminSession(admin.getAdminId(), admin.getAdminName());
+				CurrentAdminSession currentAdminSession=new CurrentAdminSession(admin.getAdminId(),admin.getAdminMobile(), admin.getAdminName());
 				currentAdminRepo.save(currentAdminSession);
 				return currentAdminSession.toString();
 			}
