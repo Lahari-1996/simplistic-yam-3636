@@ -1,19 +1,15 @@
 package com.ayushkaam.service.implementation;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.UUID;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ayushkaam.exception.LogInException;
 import com.ayushkaam.model.Admin;
-import com.ayushkaam.model.Member;
-import com.ayushkaam.model.MemberLogInDTO;
-import com.ayushkaam.model.MemberSession;
+import com.ayushkaam.model.CurrentAdminSession;
 import com.ayushkaam.repository.AdminDao;
-import com.ayushkaam.repository.MemberSessionDao;
+import com.ayushkaam.repository.CurrentAdminDao;
 import com.ayushkaam.service.AdminService;
 
 @Service
@@ -23,30 +19,31 @@ public class AdminServiceImpl implements AdminService{
 	private AdminDao adminRepo;
 	
 	@Autowired
-	private MemberSessionDao memberSessionRepository;
+	private CurrentAdminDao currentAdminRepo;
 	
 	@Override
-	public MemberSession logIntoAccount(MemberLogInDTO memberLogInDTO) throws LogInException{
+	public String logIntoAccount(Admin admin) {
+		Optional<Admin> adminObj =adminRepo.findByAdminId(admin.getAdminId());
+		if(!adminObj.isPresent()) {
+			return "Please Enter Valid ID";
+		}
+		else {
+			Admin admin1=adminObj.get();
 		
-		
-		
-		Optional<MemberSession> meOptional = memberSessionRepository.findByMobileNumber(memberLogInDTO.getMobileNumber());
-
-		if(meOptional.isPresent()) throw new LogInException("User already logged in.");
-		
-		Admin admin = adminRepo.findByMobileNumber(memberLogInDTO.getMobileNumber()).orElseThrow(() -> new LogInException("User Not Registered, please register first"));
-		
-		if(!admin.getAdminPassword().equals(memberLogInDTO.getPassword())) throw new LogInException("Wrong Password Please Enter Correct Password");
-		
-		
-		MemberSession memberSession = new MemberSession();
-		
-		memberSession.setMobileNumber(admin.getMobileNumber());
-		memberSession.setTimestamp(LocalDateTime.now());
-		memberSession.setRole("Admin");
-		memberSession.setToken(UUID.randomUUID().toString());
-		
-		return memberSessionRepository.save(memberSession);
+			
+			Optional<CurrentAdminSession> currentAdmin1=currentAdminRepo.findById(admin1.getAdminId());
+			if(currentAdmin1.isPresent()) {
+				return "Admin already logged in with this Name";
+			}
+			else if(admin1.getAdminPassword().equals(admin.getAdminPassword())) {
+				CurrentAdminSession currentAdminSession=new CurrentAdminSession(admin.getAdminId(), admin.getAdminName());
+				currentAdminRepo.save(currentAdminSession);
+				return currentAdminSession.toString();
+			}
+			else {
+				return "Invalid Password";
+			}
+		}
 	}
 
 	
@@ -55,14 +52,51 @@ public class AdminServiceImpl implements AdminService{
 
 
 	@Override
-	public String logOutAccount(String key) throws LogInException {
+	public String logOutAccount(int adminId, String password) {
+		Optional<CurrentAdminSession> currentAdminObj=currentAdminRepo.findById(adminId);
+		if(!currentAdminObj.isPresent()) {
+			return "No Admin Logged In With this Name";
+		}
+		else {
+			CurrentAdminSession currentAdmin1=currentAdminObj.get();
+			if(adminRepo.findById(adminId).get().getAdminPassword()==password) {
+				currentAdminRepo.delete(currentAdmin1);
+				return "Admin logged out";
+			}
+			else return "Invalid Password";
+		}
+	}
+
+
+
+
+
+
+	@Override
+	public Admin createAdmin(Admin admin) {
+	Optional<Admin> opt= adminRepo.findByAdminId(admin.getAdminId());
 		
-		MemberSession meSession = memberSessionRepository.findByToken(key).orElseThrow(() -> new LogInException("Invalid Token or User not Logged In"));
+		if(opt.isPresent()) {
+			System.out.println("User already exist");
+		}
+		return adminRepo.save(admin);
+	}
+
+
+
+
+
+
+	@Override
+	public Admin updateAdmin(Admin admin) {
+		Optional<Admin> optAdmin= adminRepo.findById(admin.getAdminId());
 		
-		memberSessionRepository.delete(meSession);
+		if(!optAdmin.isPresent()) {
+			
+			throw new RuntimeException("Unauthorised access");
+		}
 		
-		return "Thank You For Using AyushKaam 💉";
-		
+		else return adminRepo.save(admin);
 	}
 
 }

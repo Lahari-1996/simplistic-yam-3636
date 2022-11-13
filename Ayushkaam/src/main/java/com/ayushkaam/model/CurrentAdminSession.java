@@ -1,10 +1,6 @@
 package com.ayushkaam.model;
 
-
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
@@ -17,11 +13,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Admin {
-     
+public class CurrentAdminSession {
+
 	@Id
-	private Integer adminId;
+	private int adminId;
 	private String adminName;
-	private String adminPassword;
-	
+
 }
