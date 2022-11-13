@@ -8,9 +8,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ayushkaam.exception.MemberNotFoundException;
 import com.ayushkaam.exception.VaccinationCenterException;
+import com.ayushkaam.model.Member;
 import com.ayushkaam.model.MemberSession;
 import com.ayushkaam.model.VaccinationCenter;
+import com.ayushkaam.repository.MemberDao;
 import com.ayushkaam.repository.MemberSessionDao;
 import com.ayushkaam.repository.VaccinationCenterDao;
 import com.ayushkaam.service.VaccinationCenterService;
@@ -31,43 +34,64 @@ public class VaccinCenterServiceImpl implements VaccinationCenterService {
 	@Autowired
 	public VaccinationCenterDao vaccineCenterDao;
 	
+	
+	@Autowired
+	public MemberDao memberDao;
+	
 
 	@Override
-	public List<VaccinationCenter> getAllVaccineCenters(String key) throws VaccinationCenterException {
+	public List<VaccinationCenter> getAllVaccineCenters(String key) throws VaccinationCenterException , MemberNotFoundException{
 		
 		
 		Optional<MemberSession> member = loggedMembersDetails.findByToken(key);
-		Optional<MemberSession> admin = loggedAdminDetails.findByToken(key);
 		
-		if(!member.isPresent() && !admin.isPresent()) {
+		if(!member.isPresent()) {
 			
 			throw new VaccinationCenterException("unauthorized user....");
 			
 			
 		}
 		
+		
+		MemberSession user = member.get();
+		
 		List<VaccinationCenter> listOfCenters = new ArrayList<>();
 		
-		listOfCenters = vaccineCenterDao.findAll();
-		
-		if(listOfCenters.isEmpty()) {
+		if(user.getRole() == "Admin") {
 			
-			throw  new VaccinationCenterException("No Centers Found...");
+			listOfCenters = vaccineCenterDao.findAll();
+			
+			if(listOfCenters.isEmpty()) {
+				
+				throw  new VaccinationCenterException("No Centers Found...");
+			}
+			
+			
+			
+		}
+		else {
+			
+			
+			Member member1 = memberDao.findByMobileNumber(user.getMobileNumber()).orElseThrow(() -> new MemberNotFoundException("User Not Found"));
+			
+			
+			listOfCenters =	vaccineCenterDao.findByPincode(member1.getAddress().getPincode());
+			
+			
+			if(listOfCenters.size() == 0) throw new VaccinationCenterException("No Vaccination Center Found in Your Area");
 		}
 		
 		
-		return listOfCenters;
-		
+		return listOfCenters; 
 		
 	}
 
 	@Override
 	public VaccinationCenter getvaccineCenter(Integer centerId, String key) throws VaccinationCenterException {
 		
-		Optional<MemberSession> member = loggedMembersDetails.findByToken(key);
-		Optional<MemberSession> admin = loggedAdminDetails.findByToken(key);
+		Optional<MemberSession> member = loggedAdminDetails.findByToken(key);
 		
-		if(!member.isPresent() && !admin.isPresent()) {
+		if(!member.isPresent()) {
 			
 			throw new VaccinationCenterException("unauthorized user....");
 			

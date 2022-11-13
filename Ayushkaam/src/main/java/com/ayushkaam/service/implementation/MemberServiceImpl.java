@@ -96,7 +96,9 @@ public class MemberServiceImpl implements MemberService{
 	public Member deleteMemberById(Long memberId , String key) throws MemberException {
 	
 		
-		memberSessionRepo.findByToken(key).orElseThrow(() -> new MemberException("User Not Logged In, Please Log In First"));
+		MemberSession memberSession = memberSessionRepo.findByToken(key).orElseThrow(() -> new MemberException("User Not Logged In, Please Log In First"));
+		
+		memberSessionRepo.delete(memberSession);
 		
 		Member member = memberDao.findById(memberId).orElseThrow(() -> new MemberException("Invalid Member ID, Please Enter Valid Member ID"));
 		

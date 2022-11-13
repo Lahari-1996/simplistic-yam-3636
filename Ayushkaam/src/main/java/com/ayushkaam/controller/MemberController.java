@@ -1,6 +1,7 @@
 package com.ayushkaam.controller;
 
 import javax.validation.Valid;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,14 +15,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.ayushkaam.exception.LogInException;
 import com.ayushkaam.exception.MemberException;
+import com.ayushkaam.exception.VaccinationCenterException;
 import com.ayushkaam.model.Member;
 import com.ayushkaam.model.MemberLogInDTO;
 import com.ayushkaam.model.MemberSession;
+import com.ayushkaam.model.VaccinationCenter;
 import com.ayushkaam.service.MemberLogInService;
 import com.ayushkaam.service.MemberService;
+import com.ayushkaam.service.VaccinationCenterService;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -33,6 +38,10 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
+	
+	@Autowired
+	private VaccinationCenterService vaccinationService;
+	
 	
 	
 
@@ -93,5 +102,12 @@ public class MemberController {
 		
 		
 		return new ResponseEntity<String>(logInService.logOutMember(key) , HttpStatus.OK);
+	}
+	
+	@GetMapping("/vaccinecenters/{key}")
+	public ResponseEntity<List<VaccinationCenter>> getAllVaccinationCenterHandler(@PathVariable("key") String key) throws VaccinationCenterException , MemberException{
+		
+		
+		return new ResponseEntity<List<VaccinationCenter>>(vaccinationService.getAllVaccineCenters(key), HttpStatus.OK);
 	}
 }

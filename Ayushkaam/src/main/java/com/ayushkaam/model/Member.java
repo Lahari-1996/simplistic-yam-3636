@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -81,7 +82,7 @@ public class Member {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "members", fetch = FetchType.EAGER)
 	private List<Appointment> appointments = new ArrayList<>();
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	private VaccineRegistration vaccinRegistration;
 
 
