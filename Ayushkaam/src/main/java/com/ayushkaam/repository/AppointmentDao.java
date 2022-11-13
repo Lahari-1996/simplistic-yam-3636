@@ -2,6 +2,7 @@ package com.ayushkaam.repository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,7 +12,7 @@ import com.ayushkaam.model.Appointment;
 import com.ayushkaam.model.Member;
 
 @Repository
-public interface AppointmentDao extends JpaRepository<Appointment, Long> {
+public interface AppointmentDao extends JpaRepository<Appointment, Integer> {
 	
-	public List<Appointment> findByMembers(String mobileNumber);
+	public Optional<Appointment> findByMembers(String mobileNumber);
 }

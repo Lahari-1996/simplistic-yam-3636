@@ -15,10 +15,10 @@ public interface MemberService {
 	
 	public List<Member> getAllMembers(String key) throws MemberException;
 	
-	public Member getMemberById(Long memberId , String Key) throws MemberException;
+	public Member getMemberById(Integer memberId , String Key) throws MemberException;
 	
 	public Member getMemberByAadharNumber(Long aadharNumber , String key)throws MemberException;
 	
-	public Member deleteMemberById(Long memberId , String key) throws MemberException;
+	public Member deleteMemberById(Integer memberId , String key) throws MemberException;
 	
 }

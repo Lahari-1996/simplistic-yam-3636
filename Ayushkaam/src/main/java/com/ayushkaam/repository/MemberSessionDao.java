@@ -9,7 +9,7 @@ import com.ayushkaam.model.MemberSession;
 
 
 @Repository
-public interface MemberSessionDao extends JpaRepository<MemberSession, Long>{
+public interface MemberSessionDao extends JpaRepository<MemberSession, Integer>{
 
 	public Optional<MemberSession> findByToken(String token);
 	
