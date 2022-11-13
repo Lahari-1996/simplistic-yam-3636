@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ayushkaam.model.VaccineInventory;
 import com.ayushkaam.service.AdminService;
 import com.ayushkaam.service.AppointmentService;
+import com.ayushkaam.service.MemberLogInService;
 import com.ayushkaam.service.MemberService;
 import com.ayushkaam.service.VaccinationCenterService;
 import com.ayushkaam.service.VaccineRegistrationService;
@@ -32,6 +33,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.ayushkaam.exception.LogInException;
 import com.ayushkaam.exception.MemberException;
 import com.ayushkaam.exception.VaccinationCenterException;
+import com.ayushkaam.model.Admin;
+import com.ayushkaam.model.AdminDTO;
 import com.ayushkaam.model.Member;
 import com.ayushkaam.model.MemberLogInDTO;
 import com.ayushkaam.model.MemberSession;
@@ -51,7 +54,8 @@ public class AdminController {
 	@Autowired
 	private AppointmentService appointmentService;
 	
-	
+	@Autowired
+	private MemberLogInService memberLogInService;
 	
 	@Autowired
 	private VaccinationInventoryService vaccinationInventoryService;
@@ -67,21 +71,21 @@ public class AdminController {
 	
 	
 	
-	@PostMapping("/login")
-	public ResponseEntity<MemberSession> logInServiceHandler(@RequestBody MemberLogInDTO memberLogInDTO) throws LogInException {
+	@PostMapping("/member/login")
+	public ResponseEntity<MemberSession> memberLogInHandler(@RequestBody MemberLogInDTO memberLogInDTO) throws LogInException {
 		
 		
 		
-		return new ResponseEntity<MemberSession>(adminService.logIntoAccount(memberLogInDTO), HttpStatus.OK);
+		return new ResponseEntity<MemberSession>(memberLogInService.loginAsMember(memberLogInDTO), HttpStatus.OK);
 	}
 	
 	
-	@GetMapping("/logout")
-	public ResponseEntity<String> logInServiceHandler(@PathVariable("key") String key) throws LogInException {
+	@GetMapping("/member/logout")
+	public ResponseEntity<String> memberLogOutHandler(@PathVariable("key") String key) throws LogInException {
 		
 		
 		
-		return new ResponseEntity<String>(adminService.logOutAccount(key), HttpStatus.OK);
+		return new ResponseEntity<String>(memberLogInService.logOutMember(key), HttpStatus.OK);
 	}
 	
 	
@@ -180,7 +184,31 @@ public class AdminController {
 	    
 	}
 	
+	// create admin and update admin
+		@PostMapping("/admin")    
+		public ResponseEntity<Admin> createAdminHandler(@RequestBody Admin admin)  {
+		        
+			return new ResponseEntity<Admin>(adminService.createAdmin(admin),HttpStatus.OK);
+		}
+		
+		@PutMapping("/admin")
+		public ResponseEntity<Admin> updateAdminHandler(@RequestBody Admin admin)  {
+		       
+			return new ResponseEntity<Admin>(adminService.updateAdmin(admin),HttpStatus.OK);
+		    
+		}
 
 
-
+//Log In and Log Out Admin
+		
+		@PostMapping("/admin/login")
+		public ResponseEntity<String> adminLogInHandler(@RequestBody Admin admin) throws LogInException{
+			return new ResponseEntity<String>("Admin Logged In Successfully..."+adminService.logIntoAccount(admin) , HttpStatus.OK);
+		}
+		
+		@GetMapping("/admin/logout/{id}")
+		public ResponseEntity<String> adminLogOutHandler(@PathVariable("id") Integer adminId,@RequestParam("password") String password ) throws LogInException{
+			return new ResponseEntity<String>("Admin Logged Out"+adminService.logOutAccount(adminId,password) , HttpStatus.OK);
+		}
+	
 }
