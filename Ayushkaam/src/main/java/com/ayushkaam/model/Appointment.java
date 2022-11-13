@@ -135,7 +135,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 		public Appointment() {
 			super();
-			// TODO Auto-generated constructor stub
+			
 		}
 
 		public Appointment(long bookingId, String mobileNo, LocalDate dateofbooking, Slots slot, boolean bookingStatus,
