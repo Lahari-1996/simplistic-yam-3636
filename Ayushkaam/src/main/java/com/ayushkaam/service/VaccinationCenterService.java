@@ -8,15 +8,15 @@ import com.ayushkaam.model.VaccinationCenter;
 public interface VaccinationCenterService {
 	
 	
-	public List<VaccinationCenter> getAllVaccineCenters(String key) throws VaccinationCenterException;
+	public List<VaccinationCenter> getAllVaccineCenters(String mobileNo) throws VaccinationCenterException;
 
-	public VaccinationCenter getvaccineCenter(Integer centerId, String key) throws VaccinationCenterException;
+	public VaccinationCenter getvaccineCenter(Integer centerId, String mobileNo) throws VaccinationCenterException;
 	
-	public VaccinationCenter addVaccinationCenter(VaccinationCenter center, String key) throws VaccinationCenterException;
+	public VaccinationCenter addVaccinationCenter(VaccinationCenter center, String mobileNo) throws VaccinationCenterException;
 	
-	public VaccinationCenter updateVaccinationCenter(VaccinationCenter center, String key) throws VaccinationCenterException;
+	public VaccinationCenter updateVaccinationCenter(VaccinationCenter center, String mobileNo) throws VaccinationCenterException;
 	
-	public boolean deleteVaccineCenter (VaccinationCenter center, String key) throws VaccinationCenterException;
+	public boolean deleteVaccineCenter (VaccinationCenter center, String mobileNo) throws VaccinationCenterException;
 	
 	
 

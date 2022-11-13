@@ -15,10 +15,10 @@ public interface VaccineRegistrationService {
 
 	public Member getRegisteredMemberByMobileNumber(String mobileNo );
 
-	public VaccineRegistration addVaccineRegistration(String mobNo );
+	public VaccineRegistration addVaccineRegistration(String mobileNo );
 
-	public VaccineRegistration updateVaccineRegistration(String mobNo, String newMobNo );
+	public VaccineRegistration updateVaccineRegistration(String mobileNo, String newmobileNo );
 
-	public boolean deleteVaccineRegistration(String mobNo);
+	public boolean deleteVaccineRegistration(String mobileNo);
 
 }

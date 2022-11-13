@@ -43,11 +43,11 @@ public class VaccinCenterServiceImpl implements VaccinationCenterService {
 	
 
 	@Override
-	public List<VaccinationCenter> getAllVaccineCenters(String key) throws VaccinationCenterException , MemberNotFoundException{
+	public List<VaccinationCenter> getAllVaccineCenters(String mobileNo) throws VaccinationCenterException , MemberNotFoundException{
 		
 		
-		Optional<MemberSession> member = loggedMembersDetails.findByMobileNumber(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
+		Optional<MemberSession> member = loggedMembersDetails.findByMobileNumber(mobileNo);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(mobileNo);
 
 		
 		if( !member.isPresent() && !admin.isPresent() ) {
@@ -75,10 +75,10 @@ public class VaccinCenterServiceImpl implements VaccinationCenterService {
 	}
 
 	@Override
-	public VaccinationCenter getvaccineCenter(Integer centerId, String key) throws VaccinationCenterException {
+	public VaccinationCenter getvaccineCenter(Integer centerId, String mobileNo) throws VaccinationCenterException {
 		
-		Optional<MemberSession> member = loggedMembersDetails.findByMobileNumber(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
+		Optional<MemberSession> member = loggedMembersDetails.findByMobileNumber(mobileNo);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(mobileNo);
 
 		
 		if( !member.isPresent() && !admin.isPresent() ) {
@@ -105,10 +105,10 @@ public class VaccinCenterServiceImpl implements VaccinationCenterService {
 	}
 
 	@Override
-	public VaccinationCenter addVaccinationCenter(VaccinationCenter center, String key) throws VaccinationCenterException {
+	public VaccinationCenter addVaccinationCenter(VaccinationCenter center, String mobileNo) throws VaccinationCenterException {
 		
-		Optional<MemberSession> member = loggedMembersDetails.findByMobileNumber(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
+		Optional<MemberSession> member = loggedMembersDetails.findByMobileNumber(mobileNo);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(mobileNo);
 
 		
 		if( !member.isPresent() && !admin.isPresent() ) {
@@ -133,10 +133,10 @@ public class VaccinCenterServiceImpl implements VaccinationCenterService {
 	}
 
 	@Override
-	public VaccinationCenter updateVaccinationCenter(VaccinationCenter center, String key) throws VaccinationCenterException {
+	public VaccinationCenter updateVaccinationCenter(VaccinationCenter center, String mobileNo) throws VaccinationCenterException {
 		
-		Optional<MemberSession> member = loggedMembersDetails.findByMobileNumber(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
+		Optional<MemberSession> member = loggedMembersDetails.findByMobileNumber(mobileNo);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(mobileNo);
 
 		
 		if( !member.isPresent() && !admin.isPresent() ) {
@@ -161,10 +161,10 @@ public class VaccinCenterServiceImpl implements VaccinationCenterService {
 	}
 
 	@Override
-	public boolean deleteVaccineCenter(VaccinationCenter center, String key) throws VaccinationCenterException {
+	public boolean deleteVaccineCenter(VaccinationCenter center, String mobileNo) throws VaccinationCenterException {
 		
-		Optional<MemberSession> member = loggedMembersDetails.findByMobileNumber(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
+		Optional<MemberSession> member = loggedMembersDetails.findByMobileNumber(mobileNo);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(mobileNo);
 
 		
 		if( !member.isPresent() && !admin.isPresent() ) {

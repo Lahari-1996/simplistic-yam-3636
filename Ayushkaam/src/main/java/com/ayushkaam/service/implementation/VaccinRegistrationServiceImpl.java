@@ -37,10 +37,10 @@ public class VaccinRegistrationServiceImpl implements VaccineRegistrationService
 	
 	
 	@Override
-	public List<VaccineRegistration> allVaccineRegistration(String key) {
+	public List<VaccineRegistration> allVaccineRegistration(String mobileNo) {
 		
-		Optional<MemberSession> user = loggedMembersDetails.findByMobileNumber(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
+		Optional<MemberSession> user = loggedMembersDetails.findByMobileNumber(mobileNo);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(mobileNo);
 
 		
 		if(!user.isPresent() && !admin.isPresent()) { 
@@ -64,10 +64,10 @@ public class VaccinRegistrationServiceImpl implements VaccineRegistrationService
 	}
 
 	@Override
-	public VaccineRegistration getVaccineRegistration( String key) { 
+	public VaccineRegistration getVaccineRegistration( String mobileNo) { 
 		
-		Optional<MemberSession> user = loggedMembersDetails.findByMobileNumber(key);
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
+		Optional<MemberSession> user = loggedMembersDetails.findByMobileNumber(mobileNo);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(mobileNo);
 
 		
 			if(!user.isPresent() && !admin.isPresent() ){ 
@@ -76,11 +76,11 @@ public class VaccinRegistrationServiceImpl implements VaccineRegistrationService
 			
 			}
 			
-			Optional<VaccineRegistration> registration = vaccinRegistrationRepo.findByMobileNo(key);
+			Optional<VaccineRegistration> registration = vaccinRegistrationRepo.findByMobileNo(mobileNo);
 			
 			if(!registration.isPresent()) {
 				
-				throw new VaccineRegistrationException("No Registrations Found with : "+key);
+				throw new VaccineRegistrationException("No Registrations Found with : "+mobileNo);
 				
 			}
 			
@@ -125,10 +125,10 @@ public class VaccinRegistrationServiceImpl implements VaccineRegistrationService
 	
 
 	@Override
-	public VaccineRegistration addVaccineRegistration( String key) { 
+	public VaccineRegistration addVaccineRegistration( String mobileNo) { 
 		
-		Optional<MemberSession> user = loggedMembersDetails.findByMobileNumber(key); 
-		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
+		Optional<MemberSession> user = loggedMembersDetails.findByMobileNumber(mobileNo); 
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(mobileNo);
 
 		
 			if(!user.isPresent() && !admin.isPresent() ) { 
@@ -151,9 +151,9 @@ public class VaccinRegistrationServiceImpl implements VaccineRegistrationService
 			
 			VaccineRegistration newRegister = new VaccineRegistration();
 			
-			newRegister.setMobileNo(key);
+			newRegister.setMobileNo(mobileNo);
 			newRegister.setDateofregistration(LocalDate.now());
-			newRegister.setMember( memberDetails.findByMobileNumber(key).get());
+			newRegister.setMember( memberDetails.findByMobileNumber(mobileNo).get());
 			
 		
 			
