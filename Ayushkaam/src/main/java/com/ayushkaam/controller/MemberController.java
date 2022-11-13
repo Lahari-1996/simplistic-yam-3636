@@ -24,9 +24,11 @@ import com.ayushkaam.model.Member;
 import com.ayushkaam.model.MemberLogInDTO;
 import com.ayushkaam.model.MemberSession;
 import com.ayushkaam.model.VaccinationCenter;
+import com.ayushkaam.model.VaccineRegistration;
 import com.ayushkaam.service.MemberLogInService;
 import com.ayushkaam.service.MemberService;
 import com.ayushkaam.service.VaccinationCenterService;
+import com.ayushkaam.service.VaccineRegistrationService;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -41,6 +43,47 @@ public class MemberController {
 	
 	@Autowired
 	private VaccinationCenterService vaccinationService;
+	
+	
+	@Autowired
+	private VaccineRegistrationService vaccineRegistrationService;
+	
+	
+	
+	//Vaccine Registration
+	
+	
+	@PostMapping("/vaccine_registration/{mobNo}")
+	public ResponseEntity<VaccineRegistration> saveVaccineRegistrationHandler(@PathVariable("mobNo") String mobNo,@RequestParam String key) {
+
+		return new ResponseEntity<VaccineRegistration>(vaccineRegistrationService.addVaccineRegistration(mobNo,key),
+				HttpStatus.CREATED);
+
+	}
+
+	@GetMapping("/vaccine_registration/{mobNo}")
+	public ResponseEntity<VaccineRegistration> getVaccineRegistration(@PathVariable("mobNo") String mobNo,@RequestParam String key) {
+		
+		return new ResponseEntity<VaccineRegistration>(vaccineRegistrationService.getVaccineRegistration(mobNo, key),
+				HttpStatus.FOUND);
+	
+	}
+
+	@PutMapping("/vaccine_registration/{mobNo}")
+	public ResponseEntity<VaccineRegistration> updateVaccineRegistration(@PathVariable("mobNo") String mobNo,
+			@RequestBody VaccineRegistration reg,@RequestParam String key) {
+		
+		return new ResponseEntity<VaccineRegistration>(
+				vaccineRegistrationService.updateVaccineRegistration(mobNo, reg.getMobileNo(),key), HttpStatus.OK);
+	
+	}
+
+	@DeleteMapping("/vaccine_registration/{mobNo}")
+	public ResponseEntity<Boolean> deleteVaccineRegistration(@PathVariable("mobNo") String mobNo,@RequestParam String key) {
+		
+		return new ResponseEntity<Boolean>(vaccineRegistrationService.deleteVaccineRegistration(mobNo,key), HttpStatus.OK);
+	
+	}
 	
 	
 	
