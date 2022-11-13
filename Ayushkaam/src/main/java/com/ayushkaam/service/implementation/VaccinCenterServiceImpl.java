@@ -10,9 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.ayushkaam.exception.MemberNotFoundException;
 import com.ayushkaam.exception.VaccinationCenterException;
+import com.ayushkaam.model.CurrentAdminSession;
 import com.ayushkaam.model.Member;
 import com.ayushkaam.model.MemberSession;
 import com.ayushkaam.model.VaccinationCenter;
+import com.ayushkaam.repository.AdminDao;
+import com.ayushkaam.repository.CurrentAdminDao;
 import com.ayushkaam.repository.MemberDao;
 import com.ayushkaam.repository.MemberSessionDao;
 import com.ayushkaam.repository.VaccinationCenterDao;
@@ -28,24 +31,26 @@ public class VaccinCenterServiceImpl implements VaccinationCenterService {
 	
 	
 	@Autowired
-	public MemberSessionDao loggedAdminDetails;
+	public CurrentAdminDao loggedAdminDetails;
 	
 	
 	@Autowired
 	public VaccinationCenterDao vaccineCenterDao;
 	
 	
-	@Autowired
-	public MemberDao memberDao;
+//	@Autowired
+//	public AdminDao memberDao;
 	
 
 	@Override
 	public List<VaccinationCenter> getAllVaccineCenters(String key) throws VaccinationCenterException , MemberNotFoundException{
 		
 		
-		Optional<MemberSession> member = loggedMembersDetails.findByToken(key);
+		Optional<MemberSession> member = loggedMembersDetails.findByMobileNumber(key);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
+
 		
-		if(!member.isPresent()) {
+		if( !member.isPresent() && !admin.isPresent() ) {
 			
 			throw new VaccinationCenterException("unauthorized user....");
 			
@@ -53,45 +58,30 @@ public class VaccinCenterServiceImpl implements VaccinationCenterService {
 		}
 		
 		
-		MemberSession user = member.get();
 		
-		List<VaccinationCenter> listOfCenters = new ArrayList<>();
 		
-		if(user.getRole() == "Admin") {
+		List<VaccinationCenter> listOfVaccinationCenter = vaccineCenterDao.findAll();
+		
+		if(listOfVaccinationCenter.isEmpty()) {
 			
-			listOfCenters = vaccineCenterDao.findAll();
-			
-			if(listOfCenters.isEmpty()) {
-				
-				throw  new VaccinationCenterException("No Centers Found...");
-			}
-			
-			
-			
-		}
-		else {
-			
-			
-			Member member1 = memberDao.findByMobileNumber(user.getMobileNumber()).orElseThrow(() -> new MemberNotFoundException("User Not Found"));
-			
-			
-			listOfCenters =	vaccineCenterDao.findByPincode(member1.getAddress().getPincode());
-			
-			
-			if(listOfCenters.size() == 0) throw new VaccinationCenterException("No Vaccination Center Found in Your Area");
+			throw new VaccinationCenterException("NO vaccination centerss found...");
 		}
 		
 		
-		return listOfCenters; 
+		
+		
+		return listOfVaccinationCenter;
 		
 	}
 
 	@Override
 	public VaccinationCenter getvaccineCenter(Integer centerId, String key) throws VaccinationCenterException {
 		
-		Optional<MemberSession> member = loggedAdminDetails.findByToken(key);
+		Optional<MemberSession> member = loggedMembersDetails.findByMobileNumber(key);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
+
 		
-		if(!member.isPresent()) {
+		if( !member.isPresent() && !admin.isPresent() ) {
 			
 			throw new VaccinationCenterException("unauthorized user....");
 			
@@ -117,14 +107,18 @@ public class VaccinCenterServiceImpl implements VaccinationCenterService {
 	@Override
 	public VaccinationCenter addVaccinationCenter(VaccinationCenter center, String key) throws VaccinationCenterException {
 		
-		Optional<MemberSession> admin = loggedAdminDetails.findByToken(key);
+		Optional<MemberSession> member = loggedMembersDetails.findByMobileNumber(key);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
+
 		
-		if(!admin.isPresent()) {
+		if( !member.isPresent() && !admin.isPresent() ) {
 			
 			throw new VaccinationCenterException("unauthorized user....");
 			
 			
 		}
+		
+		
 		
 		Optional<VaccinationCenter> found = vaccineCenterDao.findById(center.getCode());
 		
@@ -141,9 +135,11 @@ public class VaccinCenterServiceImpl implements VaccinationCenterService {
 	@Override
 	public VaccinationCenter updateVaccinationCenter(VaccinationCenter center, String key) throws VaccinationCenterException {
 		
-		Optional<MemberSession> admin = loggedAdminDetails.findByToken(key);
+		Optional<MemberSession> member = loggedMembersDetails.findByMobileNumber(key);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
+
 		
-		if(admin.isPresent()) {
+		if( !member.isPresent() && !admin.isPresent() ) {
 			
 			throw new VaccinationCenterException("unauthorized user....");
 			
@@ -167,9 +163,11 @@ public class VaccinCenterServiceImpl implements VaccinationCenterService {
 	@Override
 	public boolean deleteVaccineCenter(VaccinationCenter center, String key) throws VaccinationCenterException {
 		
-		Optional<MemberSession> admin = loggedAdminDetails.findByToken(key);
+		Optional<MemberSession> member = loggedMembersDetails.findByMobileNumber(key);
+		Optional<CurrentAdminSession> admin = loggedAdminDetails.findByAdminMobile(key);
+
 		
-		if(!admin.isPresent()) {
+		if( !member.isPresent() && !admin.isPresent() ) {
 			
 			throw new VaccinationCenterException("unauthorized user....");
 			
