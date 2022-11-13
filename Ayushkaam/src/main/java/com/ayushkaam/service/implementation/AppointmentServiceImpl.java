@@ -19,6 +19,7 @@ import com.ayushkaam.repository.CurrentAdminDao;
 import com.ayushkaam.repository.MemberSessionDao;
 import com.ayushkaam.service.AppointmentService;
 import com.ayushkaam.service.MemberService;
+import com.ayushkaam.service.VaccinationCenterService;
 import com.ayushkaam.service.VaccineRegistrationService;
 
 public class AppointmentServiceImpl implements AppointmentService{
@@ -39,7 +40,7 @@ public class AppointmentServiceImpl implements AppointmentService{
 	private VaccineRegistrationService registrationService;
 	
 	@Autowired
-	private VaccineRegistrationService vaccinationCenterService;
+	private VaccinationCenterService vaccinationCenterService;
 	
 	@Override
 	public List<Appointment> getAllAppointment() throws AppointmentException {
@@ -88,7 +89,7 @@ public class AppointmentServiceImpl implements AppointmentService{
 			}
 	
 
-		VaccineRegistration reg = registrationService.addVaccineRegistration(app.getMobileNo(), key);
+		VaccineRegistration reg = registrationService.addVaccineRegistration(app.getMobileNo());
 		if (reg == null)
 			throw new AppointmentException("First do the registration...");
 		else {
@@ -99,7 +100,7 @@ public class AppointmentServiceImpl implements AppointmentService{
 					app.setDateofbooking(LocalDate.now());
 					app.setBookingStatus(true);
 					Integer id = app.getVaccinationCenter().getCode();
-					VaccinationCenter vaccinationCenter = vaccinationCenterService.getVaccineCenter(id,key);
+					VaccinationCenter vaccinationCenter = vaccinationCenterService.getvaccineCenter(id, key);
 					app.setVaccinationCenter(vaccinationCenter);
 					Appointment a = appointmentDao.save(app);
 					m.getAppointments().add(a);
@@ -127,7 +128,7 @@ public class AppointmentServiceImpl implements AppointmentService{
 
 	if(!appointment.isPresent())
 	{
-	throw new AppointmentException("Appointment not found!"));
+	throw new AppointmentException("Appointment not found!");
 	}
 	
 	Appointment appt=appointment.get();
