@@ -69,7 +69,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public Member getMemberById(Long memberId, String key) throws MemberException {
+	public Member getMemberById(Integer memberId, String key) throws MemberException {
 		
 		memberSessionRepo.findByToken(key).orElseThrow(() -> new MemberException("User Not Logged In, Please Log In First"));		
 		
@@ -93,7 +93,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public Member deleteMemberById(Long memberId , String key) throws MemberException {
+	public Member deleteMemberById(Integer memberId , String key) throws MemberException {
 	
 		
 		MemberSession memberSession = memberSessionRepo.findByToken(key).orElseThrow(() -> new MemberException("User Not Logged In, Please Log In First"));

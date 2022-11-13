@@ -10,7 +10,7 @@ import com.ayushkaam.model.MemberSession;
 
 
 @Repository
-public interface MemberDao extends JpaRepository<Member, Long>{
+public interface MemberDao extends JpaRepository<Member, Integer>{
 
 	
 	public  Optional<Member> findByMobileNumber(String mobileNumber);
