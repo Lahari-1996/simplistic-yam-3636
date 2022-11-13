@@ -5,8 +5,11 @@ import javax.persistence.Entity;
 
 import javax.persistence.Id;
 
-import java.util.List;
+<<<<<<< HEAD
+=======
 
+>>>>>>> 73aa0a895f826e9e26155a0fe2bacb33cfbfd304
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
