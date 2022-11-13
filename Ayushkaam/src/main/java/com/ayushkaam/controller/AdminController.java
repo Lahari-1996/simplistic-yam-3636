@@ -71,22 +71,22 @@ public class AdminController {
 	
 	
 	
-	@PostMapping("/member/login")
-	public ResponseEntity<MemberSession> memberLogInHandler(@RequestBody MemberLogInDTO memberLogInDTO) throws LogInException {
-		
-		
-		
-		return new ResponseEntity<MemberSession>(memberLogInService.loginAsMember(memberLogInDTO), HttpStatus.OK);
-	}
-	
-	
-	@GetMapping("/member/logout")
-	public ResponseEntity<String> memberLogOutHandler(@PathVariable("key") String key) throws LogInException {
-		
-		
-		
-		return new ResponseEntity<String>(memberLogInService.logOutMember(key), HttpStatus.OK);
-	}
+//	@PostMapping("/member/login")
+//	public ResponseEntity<MemberSession> memberLogInHandler(@RequestBody MemberLogInDTO memberLogInDTO) throws LogInException {
+//		
+//		
+//		
+//		return new ResponseEntity<MemberSession>(memberLogInService.loginAsMember(memberLogInDTO), HttpStatus.OK);
+//	}
+//	
+//	
+//	@GetMapping("/member/logout")
+//	public ResponseEntity<String> memberLogOutHandler(@PathVariable("key") String key) throws LogInException {
+//		
+//		
+//		
+//		return new ResponseEntity<String>(memberLogInService.logOutMember(key), HttpStatus.OK);
+//	}
 	
 	
 	
@@ -114,7 +114,7 @@ public class AdminController {
     
     //To get a VaccinationCenter details by Id Of the Center.
     @GetMapping("/vaccination_center/{id}")
-    public ResponseEntity<VaccinationCenter> addVaccineCenter(@PathVariable("id") Integer id,@RequestParam String key) throws VaccinationCenterException {
+    public ResponseEntity<VaccinationCenter> addVaccineCenter(@PathVariable("id") Integer id,@RequestParam("token") String key) throws VaccinationCenterException {
         
     	
     	return new ResponseEntity<VaccinationCenter>(vaccineCenterService.getvaccineCenter(id,key), HttpStatus.FOUND);

@@ -98,6 +98,4 @@ public class Vaccine {
 	
 	
 	
-	
->>>>>>> 650de5bc00690eb44344165130f5e5df9a9c6274
 }
