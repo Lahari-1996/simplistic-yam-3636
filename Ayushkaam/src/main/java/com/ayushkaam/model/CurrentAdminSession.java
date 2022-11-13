@@ -18,5 +18,6 @@ public class CurrentAdminSession {
 	@Id
 	private int adminId;
 	private String adminName;
+	private String adminMobile;
 
 }
