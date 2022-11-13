@@ -37,7 +37,7 @@ public class VaccineServiceImpl implements VaccineService{
 		
 		if(!optCurrAdmin.isPresent()&&!optMembSession.isPresent()) {
 			
-			throw new RuntimeException("Unauthorised access")
+			throw new RuntimeException("Unauthorised access");
 		}
 		
 		List<Vaccine> list = dao.findAll();
