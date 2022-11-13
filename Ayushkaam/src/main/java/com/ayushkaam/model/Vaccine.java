@@ -1,16 +1,10 @@
 package com.ayushkaam.model;
 
-<<<<<<< HEAD
+
 import javax.persistence.Entity;
+
 import javax.persistence.Id;
 
-@Entity
-public class Vaccine {
-
-	
-	@Id
-	private Integer vaccineId;
-=======
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -100,7 +94,7 @@ public class Vaccine {
 		this.vaccinecount = vaccinecount;
 		this.member = member;
 	}
-	
+
 	
 	
 	
