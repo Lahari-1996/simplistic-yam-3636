@@ -41,6 +41,7 @@ import com.ayushkaam.model.Member;
 import com.ayushkaam.model.MemberLogInDTO;
 import com.ayushkaam.model.MemberSession;
 import com.ayushkaam.model.VaccinationCenter;
+import com.ayushkaam.model.Vaccine;
 
 
 @RestController
@@ -226,4 +227,43 @@ public class AdminController {
 		        return new ResponseEntity<Appointment>(appointmentService.getAppointmentByBookingId(bookingId,key),
 		                HttpStatus.FOUND);
 		    }
+		    
+		    //vaccine service
+		    
+		    //	Vaccine Service controller
+		    @GetMapping("/vaccines")
+		    public ResponseEntity<List<Vaccine>> getAllVaccineHandler(@RequestParam String key) {
+		        return new ResponseEntity<List<Vaccine>>(vaccineService.allVaccine(key), HttpStatus.FOUND);
+		    }
+		    @GetMapping("/vaccine/{vaccineName}")
+		    public ResponseEntity<Vaccine> getVaccineByNameHandler(@PathVariable("vaccineName") String vaccineName,@RequestParam String key) {
+		        return new ResponseEntity<Vaccine>(vaccineService.getVaccineByName(vaccineName,key),
+		                HttpStatus.FOUND);
+		    }
+		   
+		    @GetMapping("/vaccine/{id}")
+		    public ResponseEntity<Vaccine> getVaccineByIdHandler(@PathVariable("id") Integer id,@RequestParam String key) {
+		        return new ResponseEntity<Vaccine>(vaccineService.getVaccineById(id,key), HttpStatus.FOUND);
+		    }
+		   
+		   
+		    @PostMapping("/vaccine")
+		    public ResponseEntity<Vaccine> addVaccineHandler(@RequestBody Vaccine vaccine,@RequestParam String key) {
+		        return new ResponseEntity<Vaccine>(vaccineService.addVaccine(vaccine,key), HttpStatus.ACCEPTED);
+		    }
+		    @DeleteMapping("/vaccine")
+		    public ResponseEntity<String> deleteVaccine(@RequestBody Vaccine vaccine,@RequestParam String key) {
+		        return new ResponseEntity<String>("Vaccine deleted : " + vaccineService.deleteVaccine(vaccine,key), HttpStatus.OK);
+		    }
+		    @PutMapping("/vaccine")
+		    public ResponseEntity<Vaccine> updateVaccineHandler(@RequestBody Vaccine vaccine,@RequestParam String key) {
+		        return new ResponseEntity<Vaccine>(vaccineService.updateVaccine(vaccine,key), HttpStatus.OK);
+		    }
+		    
+		    
+		    
+		    
+		    
+		    
+		    
 }
