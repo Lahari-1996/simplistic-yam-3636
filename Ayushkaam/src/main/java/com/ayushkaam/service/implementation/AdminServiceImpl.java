@@ -52,14 +52,14 @@ public class AdminServiceImpl implements AdminService{
 
 
 	@Override
-	public String logOutAccount(CurrentAdminSession currentAdminSession) {
+	public String logOutAccount(CurrentAdminSession currentAdminSession,String password) { 
 		Optional<CurrentAdminSession> currentAdminObj=currentAdminRepo.findById(currentAdminSession.getAdminId());
 		if(!currentAdminObj.isPresent()) {
 			return "No Admin Logged In With this Name";
 		}
 		else {
 			CurrentAdminSession currentAdmin1=currentAdminObj.get();
-			if(adminRepo.findById(currentAdminSession.getAdminId()).get().getAdminPassword()==password) {
+			if(adminRepo.findById(currentAdminSession.getAdminId()).get().getAdminPassword()==password) { 
 				currentAdminRepo.delete(currentAdmin1);
 				return "Admin logged out";
 			}

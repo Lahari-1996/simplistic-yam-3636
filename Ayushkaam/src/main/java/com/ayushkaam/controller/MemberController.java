@@ -53,35 +53,44 @@ public class MemberController {
 	//Vaccine Registration
 	
 	
+	//get registered member by mobile number
+	@GetMapping("/registeredMember/{mobNo}")
+	public ResponseEntity<Member> getRegisteredMemberByMobileNumber(@PathVariable("mobNo") String mobNo ) {
+		
+		return new ResponseEntity<Member>(vaccineRegistrationService.getRegisteredMemberByMobileNumber(mobNo), HttpStatus.FOUND);
+	
+	}
+	
+	
 	@PostMapping("/vaccine_registration/{mobNo}")
-	public ResponseEntity<VaccineRegistration> saveVaccineRegistrationHandler(@PathVariable("mobNo") String mobNo,@RequestParam String key) {
+	public ResponseEntity<VaccineRegistration> saveVaccineRegistrationHandler(@PathVariable("mobNo") String mobNo ) {
 
-		return new ResponseEntity<VaccineRegistration>(vaccineRegistrationService.addVaccineRegistration(mobNo,key),
+		return new ResponseEntity<VaccineRegistration>(vaccineRegistrationService.addVaccineRegistration(mobNo ),
 				HttpStatus.CREATED);
 
 	}
 
 	@GetMapping("/vaccine_registration/{mobNo}")
-	public ResponseEntity<VaccineRegistration> getVaccineRegistration(@PathVariable("mobNo") String mobNo,@RequestParam String key) {
+	public ResponseEntity<VaccineRegistration> getVaccineRegistration(@PathVariable("mobNo") String mobNo ) { 
 		
-		return new ResponseEntity<VaccineRegistration>(vaccineRegistrationService.getVaccineRegistration(mobNo, key),
+		return new ResponseEntity<VaccineRegistration>(vaccineRegistrationService.getVaccineRegistration(mobNo ),
 				HttpStatus.FOUND);
 	
 	}
 
 	@PutMapping("/vaccine_registration/{mobNo}")
 	public ResponseEntity<VaccineRegistration> updateVaccineRegistration(@PathVariable("mobNo") String mobNo,
-			@RequestBody VaccineRegistration reg,@RequestParam String key) {
+			@RequestBody VaccineRegistration reg ) {
 		
 		return new ResponseEntity<VaccineRegistration>(
-				vaccineRegistrationService.updateVaccineRegistration(mobNo, reg.getMobileNo(),key), HttpStatus.OK);
+				vaccineRegistrationService.updateVaccineRegistration( mobNo, reg.getMobileNo() ), HttpStatus.OK);
 	
 	}
 
 	@DeleteMapping("/vaccine_registration/{mobNo}")
-	public ResponseEntity<Boolean> deleteVaccineRegistration(@PathVariable("mobNo") String mobNo,@RequestParam String key) {
+	public ResponseEntity<Boolean> deleteVaccineRegistration(@PathVariable("mobNo") String mobNo ) {
 		
-		return new ResponseEntity<Boolean>(vaccineRegistrationService.deleteVaccineRegistration(mobNo,key), HttpStatus.OK);
+		return new ResponseEntity<Boolean>(vaccineRegistrationService.deleteVaccineRegistration( mobNo ), HttpStatus.OK); 
 	
 	}
 	
