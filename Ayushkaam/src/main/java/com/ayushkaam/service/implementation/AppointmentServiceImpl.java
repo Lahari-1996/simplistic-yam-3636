@@ -18,12 +18,16 @@ import com.ayushkaam.repository.AppointmentDao;
 import com.ayushkaam.repository.CurrentAdminDao;
 import com.ayushkaam.repository.MemberSessionDao;
 import com.ayushkaam.service.AppointmentService;
+import com.ayushkaam.service.MemberService;
 import com.ayushkaam.service.VaccineRegistrationService;
 
 public class AppointmentServiceImpl implements AppointmentService{
 
 	@Autowired
 	private CurrentAdminDao currentAdminDao;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@Autowired
 	private AppointmentDao appointmentDao;
@@ -99,25 +103,58 @@ public class AppointmentServiceImpl implements AppointmentService{
 					app.setVaccinationCenter(vaccinationCenter);
 					Appointment a = appointmentDao.save(app);
 					m.getAppointments().add(a);
-					memberService.updateMember(m, m.getMemberid(),key);
+					memberService.updateMemberDetails(m, key);
 					return a;
 				}
 			}
-			throw new AppointmentExcepation("Member not found...");
+			throw new AppointmentException("Member not found...");
 		}
 		
 	}
 
 	@Override
 	public Appointment updateAppointment(Appointment app, String key) throws AppointmentException {
-		// TODO Auto-generated method stub
-		return null;
+
+		Optional<MemberSession> optCurrUser= memberSessionDao.findByMobileNumber(key);
+		
+		if(!optCurrUser.isPresent()) {
+			
+			throw new RuntimeException("Unauthorised access");
+		}
+		
+	Optional<Appointment> appointment = appointmentDao.findByMembers(app.getMobileNo());
+			//.orElseThrow(() -> new AppointmentException("Appointment not found!"));
+
+	if(!appointment.isPresent())
+	{
+	throw new AppointmentException("Appointment not found!"));
+	}
+	
+	Appointment appt=appointment.get();
+	
+	appt.setDateofbooking(app.getDateofbooking());
+	appt.setVaccinationCenter(app.getVaccinationCenter());
+	appt.setSlot(app.getSlot());
+	return appointmentDao.save(appt);
+		
 	}
 
 	@Override
-	public boolean deleteAppointment(Long bookingId, String key) throws AppointmentException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteAppointment(Integer bookingId, String key) throws AppointmentException {
+	
+		 Optional<MemberSession> optCurrUser= memberSessionDao.findById(bookingId);
+			
+			if(!optCurrUser.isPresent()) {
+				
+				throw new RuntimeException("Unauthorised access");
+			}
+			
+		Appointment ExitApp = appointmentDao.findById(bookingId)
+				.orElseThrow(() -> new AppointmentException("Appointment not found!"));
+		appointmentDao.delete(ExitApp);
+		return true;
+
+		
 	}
 
 }
