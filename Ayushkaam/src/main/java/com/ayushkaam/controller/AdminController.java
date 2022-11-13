@@ -35,6 +35,7 @@ import com.ayushkaam.exception.MemberException;
 import com.ayushkaam.exception.VaccinationCenterException;
 import com.ayushkaam.model.Admin;
 import com.ayushkaam.model.AdminDTO;
+import com.ayushkaam.model.Appointment;
 import com.ayushkaam.model.CurrentAdminSession;
 import com.ayushkaam.model.Member;
 import com.ayushkaam.model.MemberLogInDTO;
@@ -212,4 +213,10 @@ public class AdminController {
 			return new ResponseEntity<String>("Admin Logged Out"+adminService.logOutAccount(currentAdminSession,password) , HttpStatus.OK);
 		}
 	
+		
+//		Appointement Handler
+		 @GetMapping("/appointments")
+		    public ResponseEntity<List<Appointment>> getAllVaccineAppointmentHandler() {
+		        return new ResponseEntity<List<Appointment>>(appointmentService.getAllAppointment(), HttpStatus.FOUND);
+		    }
 }
