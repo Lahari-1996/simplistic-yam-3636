@@ -9,16 +9,16 @@ import com.ayushkaam.model.VaccineRegistration;
 public interface VaccineRegistrationService {
 	
 	
-	public List<VaccineRegistration> allVaccineRegistration(String key);
+	public List<VaccineRegistration> allVaccineRegistration(String mobileNo);
 
-	public VaccineRegistration getVaccineRegistration(String mobileNo,String key);
+	public VaccineRegistration getVaccineRegistration(String mobileNo);
 
-	public Member getRegisteredMemberByMobileNumber(String mobileNo,String key);
+	public Member getRegisteredMemberByMobileNumber(String mobileNo );
 
-	public VaccineRegistration addVaccineRegistration(String mobNo,String key);
+	public VaccineRegistration addVaccineRegistration(String mobNo );
 
-	public VaccineRegistration updateVaccineRegistration(String mobNo, String newMobNo,String key);
+	public VaccineRegistration updateVaccineRegistration(String mobNo, String newMobNo );
 
-	public boolean deleteVaccineRegistration(String mobNo,String key);
+	public boolean deleteVaccineRegistration(String mobNo);
 
 }

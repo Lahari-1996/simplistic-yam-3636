@@ -36,7 +36,7 @@ public class AdminServiceImpl implements AdminService{
 				return "Admin already logged in with this Name";
 			}
 			else if(admin1.getAdminPassword().equals(admin.getAdminPassword())) {
-				CurrentAdminSession currentAdminSession=new CurrentAdminSession(admin.getAdminId(), admin.getAdminName());
+				CurrentAdminSession currentAdminSession=new CurrentAdminSession(admin.getAdminId(), admin.getAdminName(),admin.getAdminMobile());
 				currentAdminRepo.save(currentAdminSession);
 				return currentAdminSession.toString();
 			}
@@ -52,14 +52,14 @@ public class AdminServiceImpl implements AdminService{
 
 
 	@Override
-	public String logOutAccount(CurrentAdminSession currentAdminSession) {
+	public String logOutAccount(CurrentAdminSession currentAdminSession,String password) { 
 		Optional<CurrentAdminSession> currentAdminObj=currentAdminRepo.findById(currentAdminSession.getAdminId());
 		if(!currentAdminObj.isPresent()) {
 			return "No Admin Logged In With this Name";
 		}
 		else {
 			CurrentAdminSession currentAdmin1=currentAdminObj.get();
-			if(adminRepo.findById(currentAdminSession.getAdminId()).get().getAdminPassword()==password) {
+			if(adminRepo.findById(currentAdminSession.getAdminId()).get().getAdminPassword()==password) { 
 				currentAdminRepo.delete(currentAdmin1);
 				return "Admin logged out";
 			}
