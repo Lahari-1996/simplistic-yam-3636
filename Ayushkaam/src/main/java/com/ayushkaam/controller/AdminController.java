@@ -219,4 +219,11 @@ public class AdminController {
 		    public ResponseEntity<List<Appointment>> getAllVaccineAppointmentHandler() {
 		        return new ResponseEntity<List<Appointment>>(appointmentService.getAllAppointment(), HttpStatus.FOUND);
 		    }
+		 
+
+		    @GetMapping("/appointment/{bookId}")
+		    public ResponseEntity<Appointment> getVaccineAppointmentByBookingId(@PathVariable("bookId") Integer bookingId,@RequestParam String key) {
+		        return new ResponseEntity<Appointment>(appointmentService.getAppointmentByBookingId(bookingId,key),
+		                HttpStatus.FOUND);
+		    }
 }
