@@ -61,7 +61,7 @@ public class MemberController {
 	
 	}
 	
-	
+	// vaccination registration
 	@PostMapping("/vaccine_registration/{mobNo}")
 	public ResponseEntity<VaccineRegistration> saveVaccineRegistrationHandler(@PathVariable("mobNo") String mobNo ) {
 
@@ -69,7 +69,7 @@ public class MemberController {
 				HttpStatus.CREATED);
 
 	}
-
+	//get vaccine registration
 	@GetMapping("/vaccine_registration/{mobNo}")
 	public ResponseEntity<VaccineRegistration> getVaccineRegistration(@PathVariable("mobNo") String mobNo ) { 
 		
@@ -77,7 +77,7 @@ public class MemberController {
 				HttpStatus.FOUND);
 	
 	}
-
+	//update vaccination registration
 	@PutMapping("/vaccine_registration/{mobNo}")
 	public ResponseEntity<VaccineRegistration> updateVaccineRegistration(@PathVariable("mobNo") String mobNo,
 			@RequestBody VaccineRegistration reg ) {
@@ -86,7 +86,8 @@ public class MemberController {
 				vaccineRegistrationService.updateVaccineRegistration( mobNo, reg.getMobileNo() ), HttpStatus.OK);
 	
 	}
-
+	
+	//delete vaccine registration
 	@DeleteMapping("/vaccine_registration/{mobNo}")
 	public ResponseEntity<Boolean> deleteVaccineRegistration(@PathVariable("mobNo") String mobNo ) {
 		

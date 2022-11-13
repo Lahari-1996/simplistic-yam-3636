@@ -35,6 +35,7 @@ import com.ayushkaam.exception.MemberException;
 import com.ayushkaam.exception.VaccinationCenterException;
 import com.ayushkaam.model.Admin;
 import com.ayushkaam.model.AdminDTO;
+import com.ayushkaam.model.CurrentAdminSession;
 import com.ayushkaam.model.Member;
 import com.ayushkaam.model.MemberLogInDTO;
 import com.ayushkaam.model.MemberSession;
@@ -206,9 +207,9 @@ public class AdminController {
 			return new ResponseEntity<String>("Admin Logged In Successfully..."+adminService.logIntoAccount(admin) , HttpStatus.OK);
 		}
 		
-		@GetMapping("/{id}")
-		public ResponseEntity<String> adminLogOutHandler(@PathVariable("id") Integer adminId,@RequestParam("password") String password ) throws LogInException{
-			return new ResponseEntity<String>("Admin Logged Out"+adminService.logOutAccount(adminId,password) , HttpStatus.OK);
+		@GetMapping("/logout")
+		public ResponseEntity<String> adminLogOutHandler(@RequestBody CurrentAdminSession currentAdminSession, @RequestParam String password ) throws LogInException{
+			return new ResponseEntity<String>("Admin Logged Out"+adminService.logOutAccount(currentAdminSession,password) , HttpStatus.OK);
 		}
 	
 }
