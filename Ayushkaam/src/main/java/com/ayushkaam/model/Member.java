@@ -29,6 +29,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+
 @Entity
 public class Member {
 
@@ -82,23 +83,12 @@ public class Member {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "members", fetch = FetchType.EAGER)
 	private List<Appointment> appointments = new ArrayList<>();
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	private VaccineRegistration vaccinRegistration;
+	@OneToOne
+	private VaccineRegistration vaccineRegistration;
 
 
 
-	public Member(@NotNull String memberName, @Pattern(regexp = "(^$[789]|[0-9]{10})") String mobileNumber,
-				  @NotNull @Pattern(regexp = "^(Male|Female|Others)") String gender,
-				  @NotNull @Past LocalDate dateOfBirth, @NotNull Address address,
-				  @NotNull AadharCard aadharCard) {
-		super();
-		this.memberName = memberName;
-		this.mobileNumber = mobileNumber;
-		this.gender = gender;
-		this.dateOfBirth = dateOfBirth;
-		this.address = address;
-		this.aadharCard = aadharCard;
-	}
+	
 
 
 
