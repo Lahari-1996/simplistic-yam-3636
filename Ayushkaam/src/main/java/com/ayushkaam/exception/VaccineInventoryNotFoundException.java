@@ -6,7 +6,7 @@ public class VaccineInventoryNotFoundException extends Exception{
 		
 	}
 	
-public VaccineInventoryNotFoundException(String message) {
+ public VaccineInventoryNotFoundException(String message) {
 		super(message);
 	}
 	
