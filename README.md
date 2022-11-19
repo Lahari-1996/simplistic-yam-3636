@@ -13,11 +13,17 @@ Why? -> To handhold the citizens to register and schedule an appointment for vac
 Tech Stack:
 -----------
 Java
+
 Spring Framework
+
 Spring Boot
+
 Spring Data JPA
+
 Hibernate
+
 MySQL
+
 Swagger
 
 Features:
