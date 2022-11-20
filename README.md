@@ -8,6 +8,7 @@ online in Centers of their choice. The Citizen self-registration module will ens
 of deserving candidates for receiving the vaccines.
 
 What? -> Covid-19 Vaccination 
+
 Why? -> To handhold the citizens to register and schedule an appointment for vaccination 
 
 Tech Stack:
