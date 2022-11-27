@@ -8,16 +8,23 @@ online in Centers of their choice. The Citizen self-registration module will ens
 of deserving candidates for receiving the vaccines.
 
 What? -> Covid-19 Vaccination 
+
 Why? -> To handhold the citizens to register and schedule an appointment for vaccination 
 
 Tech Stack:
 -----------
 Java
+
 Spring Framework
+
 Spring Boot
+
 Spring Data JPA
+
 Hibernate
+
 MySQL
+
 Swagger
 
 Features:
@@ -42,3 +49,11 @@ Team Members :
  3)Rohan Mourya (fw19_0816)
 
  4)Himanshu Sharma  (fw19_1055)
+
+
+
+
+## ER-Daigram :
+![Screenshot (305)](https://user-images.githubusercontent.com/101568121/193348231-2532b8a9-4cac-405f-95f1-d652e11eab12.png)
+
+
