@@ -20,6 +20,7 @@ import lombok.ToString;
 public class Admin {
      
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer adminId;
 	private String adminName;
 	private String adminMobile;

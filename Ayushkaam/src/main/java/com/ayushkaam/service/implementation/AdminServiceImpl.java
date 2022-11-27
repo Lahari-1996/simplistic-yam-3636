@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ayushkaam.exception.LogInException;
 import com.ayushkaam.model.Admin;
+import com.ayushkaam.model.AdminDTO;
 import com.ayushkaam.model.CurrentAdminSession;
 import com.ayushkaam.repository.AdminDao;
 import com.ayushkaam.repository.CurrentAdminDao;
@@ -21,9 +23,24 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired
 	private CurrentAdminDao currentAdminRepo;
 	
+	
 	@Override
-	public String logIntoAccount(Admin admin) {
-		Optional<Admin> adminObj =adminRepo.findByAdminId(admin.getAdminId());
+	public Admin createAdmin(Admin admin) {
+	Optional<Admin> opt= adminRepo.findById(admin.getAdminId());
+		
+		if(opt.isPresent()) {
+			System.out.println("User already exist");
+		}
+		
+		Admin adm=adminRepo.save(admin);
+		return adm;
+	}
+
+	
+	
+	@Override
+	public String logIntoAccount(AdminDTO adminDTO) {
+		Optional<Admin> adminObj =adminRepo.findByAdminMobile(adminDTO.getMobile());
 		if(!adminObj.isPresent()) {
 			return "Please Enter Valid ID";
 		}
@@ -31,12 +48,12 @@ public class AdminServiceImpl implements AdminService{
 			Admin admin1=adminObj.get();
 		
 			
-			Optional<CurrentAdminSession> currentAdmin1=currentAdminRepo.findById(admin1.getAdminId());
+			Optional<CurrentAdminSession> currentAdmin1=currentAdminRepo.findByAdminMobile(adminDTO.getMobile());
 			if(currentAdmin1.isPresent()) {
 				return "Admin already logged in with this Name";
 			}
-			else if(admin1.getAdminPassword().equals(admin.getAdminPassword())) {
-				CurrentAdminSession currentAdminSession=new CurrentAdminSession(admin.getAdminId(), admin.getAdminName(),admin.getAdminMobile());
+			else if(admin1.getAdminPassword().equals(adminDTO.getAdminPassword())) {
+				CurrentAdminSession currentAdminSession=new CurrentAdminSession(adminDTO.getAdminId(), adminDTO.getAdminName(),adminDTO.getMobile());
 				currentAdminRepo.save(currentAdminSession);
 				return currentAdminSession.toString();
 			}
@@ -52,36 +69,27 @@ public class AdminServiceImpl implements AdminService{
 
 
 	@Override
-	public String logOutAccount(CurrentAdminSession currentAdminSession,String password) { 
-		Optional<CurrentAdminSession> currentAdminObj=currentAdminRepo.findById(currentAdminSession.getAdminId());
+	public String logOutAccount(String mobile) { 
+		Optional<CurrentAdminSession> currentAdminObj=currentAdminRepo.findByAdminMobile(mobile);
 		if(!currentAdminObj.isPresent()) {
 			return "No Admin Logged In With this Name";
 		}
 		else {
 			CurrentAdminSession currentAdmin1=currentAdminObj.get();
-			if(adminRepo.findById(currentAdminSession.getAdminId()).get().getAdminPassword()==password) { 
+			
 				currentAdminRepo.delete(currentAdmin1);
 				return "Admin logged out";
 			}
-			else return "Invalid Password";
-		}
-	}
-
-
-
-
-
-
-	@Override
-	public Admin createAdmin(Admin admin) {
-	Optional<Admin> opt= adminRepo.findByAdminId(admin.getAdminId());
 		
-		if(opt.isPresent()) {
-			System.out.println("User already exist");
 		}
-		return adminRepo.save(admin);
-	}
+	
 
+
+
+
+
+
+	
 
 
 
@@ -98,5 +106,10 @@ public class AdminServiceImpl implements AdminService{
 		
 		else return adminRepo.save(admin);
 	}
+
+
+
+
+
 
 }

@@ -79,12 +79,12 @@ public class Member {
 //	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$")
 	private String password;
 	
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "members", fetch = FetchType.EAGER)
-	private List<Appointment> appointments = new ArrayList<>();
-	
-	@OneToOne
-	private VaccineRegistration vaccineRegistration;
+//	
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "members", fetch = FetchType.EAGER)
+//	private List<Appointment> appointments = new ArrayList<>();
+//	
+//	@OneToOne
+//	private VaccineRegistration vaccineRegistration;
 
 
 

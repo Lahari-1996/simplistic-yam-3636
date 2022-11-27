@@ -8,10 +8,11 @@ import com.ayushkaam.model.CurrentAdminSession;
 public interface AdminDao extends JpaRepository<Admin, Integer>{
 
 
-    public Optional<Admin> findByAdminId(Integer adminId);
+   // public Optional<Admin> findByAdminId(Integer adminId);
     
-	public Optional<Admin> findByAdminName(String mobileNo);
-	public Optional<CurrentAdminSession> findByAdminMobile(String mobileNumber );
-	
+//	public Optional<Admin> findByAdminName(String mobileNo);
+//	public Optional<CurrentAdminSession> findByAdminMobile(String mobileNumber );
+	public Optional<Admin> findByAdminName(String adminName);
+	public Optional<Admin> findByAdminMobile(String adminMobile);
 	
 }
