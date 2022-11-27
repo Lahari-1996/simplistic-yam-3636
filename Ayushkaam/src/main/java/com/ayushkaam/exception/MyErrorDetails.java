@@ -1,23 +1,31 @@
 package com.ayushkaam.exception;
 
+
+
 import java.time.LocalDateTime;
 
 public class MyErrorDetails {
-
-	private LocalDateTime timestamp;
+	private LocalDateTime time;
 	private String message;
-	private String details;
-
+	private String description;
+	
 	public MyErrorDetails() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public LocalDateTime getTimestamp() {
-		return timestamp;
+	public MyErrorDetails(LocalDateTime time, String message, String description) {
+		super();
+		this.time = time;
+		this.message = message;
+		this.description = description;
 	}
 
-	public void setTimestamp(LocalDateTime timestamp) {
-		this.timestamp = timestamp;
+	public LocalDateTime getTime() {
+		return time;
+	}
+
+	public void setTime(LocalDateTime time) {
+		this.time = time;
 	}
 
 	public String getMessage() {
@@ -28,19 +36,18 @@ public class MyErrorDetails {
 		this.message = message;
 	}
 
-	public String getDetails() {
-		return details;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDetails(String details) {
-		this.details = details;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public MyErrorDetails(LocalDateTime timestamp, String message, String details) {
-		super();
-		this.timestamp = timestamp;
-		this.message = message;
-		this.details = details;
+	@Override
+	public String toString() {
+		return "MyErrorDetails [time=" + time + ", message=" + message + ", description=" + description + "]";
 	}
+	
 	
 }

@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ayushkaam.exception.LogInException;
+import com.ayushkaam.exception.LoginException;
 import com.ayushkaam.model.Admin;
-import com.ayushkaam.model.AdminDTO;
+import com.ayushkaam.model.AdminLogin;
 import com.ayushkaam.model.CurrentAdminSession;
 import com.ayushkaam.repository.AdminDao;
 import com.ayushkaam.repository.CurrentAdminDao;
@@ -39,7 +39,7 @@ public class AdminServiceImpl implements AdminService{
 	
 	
 	@Override
-	public String logIntoAccount(AdminDTO adminDTO) {
+	public String logIntoAccount(AdminLogin adminDTO) {
 		Optional<Admin> adminObj =adminRepo.findByAdminMobile(adminDTO.getMobile());
 		if(!adminObj.isPresent()) {
 			return "Please Enter Valid ID";

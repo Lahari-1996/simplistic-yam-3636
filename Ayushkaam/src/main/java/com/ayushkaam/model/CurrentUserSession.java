@@ -1,21 +1,17 @@
 package com.ayushkaam.model;
 
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class CurrentAdminSession {
-
+public class CurrentUserSession {
 	@Id
 	@Column(unique = true)
 	
@@ -24,13 +20,13 @@ public class CurrentAdminSession {
 	private String uuid;
 	private LocalDateTime localDateTime;
 	
-	public CurrentAdminSession() {
-		
+	public CurrentUserSession() {
+		// TODO Auto-generated constructor stub
 	}
 	
 	
 
-	public CurrentAdminSession(Integer userId, String uuid, LocalDateTime localDateTime) {
+	public CurrentUserSession(Integer userId, String uuid, LocalDateTime localDateTime) {
 		super();
 		this.userId = userId;
 		this.uuid = uuid;
@@ -77,4 +73,7 @@ public class CurrentAdminSession {
 	}
 
 	
+	
+	
 }
+

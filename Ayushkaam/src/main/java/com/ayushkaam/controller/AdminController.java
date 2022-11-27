@@ -30,11 +30,11 @@ import com.ayushkaam.service.AdminService;
     
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.ayushkaam.exception.LogInException;
+import com.ayushkaam.exception.LoginException;
 import com.ayushkaam.exception.MemberException;
-import com.ayushkaam.exception.VaccinationCenterException;
+import com.ayushkaam.exception.VaccineCenterException;
 import com.ayushkaam.model.Admin;
-import com.ayushkaam.model.AdminDTO;
+import com.ayushkaam.model.AdminLogin;
 //import com.ayushkaam.model.Appointment;
 import com.ayushkaam.model.CurrentAdminSession;
 import com.ayushkaam.model.Member;
@@ -205,12 +205,12 @@ public class AdminController {
 //Log In and Log Out Admin
 		
 		@PostMapping("/login")
-		public ResponseEntity<String> adminLogInHandler(@RequestBody AdminDTO adminDTO) throws LogInException{
+		public ResponseEntity<String> adminLogInHandler(@RequestBody AdminLogin adminDTO) throws LoginException{
 			return new ResponseEntity<String>("Admin Logged In Successfully..."+adminService.logIntoAccount(adminDTO) , HttpStatus.OK);
 		}
 		
 		@GetMapping("/logout")
-		public ResponseEntity<String> adminLogOutHandler(@RequestParam String mobile ) throws LogInException{
+		public ResponseEntity<String> adminLogOutHandler(@RequestParam String mobile ) throws LoginException{
 			return new ResponseEntity<String>("Admin Logged Out"+adminService.logOutAccount(mobile) , HttpStatus.OK);
 		}
 	

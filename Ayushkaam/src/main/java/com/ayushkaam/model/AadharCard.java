@@ -16,20 +16,10 @@ public class AadharCard {
 	@Size(min = 12 , max = 12 , message = "Invalid Addhar Number")
 	@Column(unique = true)
 	private Long aadharNumber;
-	
-	
-	@Column(unique = true)
-	private String fingerPrints;
-	
-	@Column(unique = true)
-	private String irisscan;
 
-	public AadharCard(@Size(min = 12, max = 12, message = "Invalid Addhar Number") Long aadharNumber,
-			String fingerPrints, String irisscan) {
+	public AadharCard(@Size(min = 12, max = 12, message = "Invalid Addhar Number") Long aadharNumber) {
 		super();
 		this.aadharNumber = aadharNumber;
-		this.fingerPrints = fingerPrints;
-		this.irisscan = irisscan;
 	}
 	
 	

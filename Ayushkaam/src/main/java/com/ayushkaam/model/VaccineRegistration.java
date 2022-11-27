@@ -1,46 +1,73 @@
-//package com.ayushkaam.model;
-//
-//import java.time.LocalDate;
-//
-//import javax.persistence.CascadeType;
-//import javax.persistence.Entity;
-//import javax.persistence.Id;
-//import javax.persistence.OneToOne;
-//import javax.validation.constraints.Pattern;
-//import javax.validation.constraints.Size;
-//
-//import org.springframework.format.annotation.DateTimeFormat;
-//
-//import com.fasterxml.jackson.annotation.JsonFormat;
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-//
-//import lombok.AllArgsConstructor;
-//import lombok.Getter;
-//import lombok.NoArgsConstructor;
-//import lombok.Setter;
-//import lombok.ToString;
-//
-//
-//@Getter
-//@Setter
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@ToString
-//@Entity
-//public class VaccineRegistration {
-//	
-//	@Id
-//	@Size(max=10,message="Moblie Number length should be 10!")
-//	@Pattern(regexp = "^[6-9][0-9]{9}$",message="Mobile No is Invalid!")
-//	private String mobileNo;
-//	
-//	@JsonFormat(pattern = "dd-MM-yyyy")
-////	@NotNull(message = "Date of Registration should not be Null")
-//	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-//	private LocalDate dateofregistration;
-//	
-//	@JsonIgnore
-//	@OneToOne(cascade = CascadeType.ALL, mappedBy = "vaccineRegistration")
-//	private Member member;
-//
-//}
+package com.ayushkaam.model;
+
+
+import java.time.LocalDate;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+public class VaccineRegistration {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer registrationNo;
+	private Long mobileno;
+	private LocalDate dateofregistration;
+	
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
+	private Member member;
+	public VaccineRegistration() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public VaccineRegistration(long mobileno, LocalDate dateofregistration) {
+		super();
+		this.mobileno = mobileno;
+		this.dateofregistration = dateofregistration;
+	}
+
+	public Integer getRegistrationNo() {
+		return registrationNo;
+	}
+
+	public void setRegistrationNo(Integer registrationNo) {
+		this.registrationNo = registrationNo;
+	}
+
+	public Long getMobileno() {
+		return mobileno;
+	}
+
+	public void setMobileno(Long mobileno) {
+		this.mobileno = mobileno;
+	}
+
+	public LocalDate getDateofregistration() {
+		return dateofregistration;
+	}
+
+	public void setDateofregistration(LocalDate dateofregistration) {
+		this.dateofregistration = dateofregistration;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	
+	
+
+	
+	
+}
