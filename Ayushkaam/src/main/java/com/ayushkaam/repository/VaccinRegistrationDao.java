@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.ayushkaam.model.VaccineRegistration;
 
 @Repository
-public interface VaccinRegistrationDao  extends JpaRepository<VaccineRegistration, String> {
+public interface VaccinRegistrationDao  extends JpaRepository<VaccineRegistration, Integer> {
 	
 	//public Optional<VaccineRegistration> findByMobileNo(String mobileNo);
 	
