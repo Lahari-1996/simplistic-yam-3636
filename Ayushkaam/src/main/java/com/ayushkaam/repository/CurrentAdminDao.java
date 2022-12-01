@@ -12,7 +12,7 @@ import com.ayushkaam.model.CurrentAdminSession;
 public interface CurrentAdminDao extends JpaRepository<CurrentAdminSession, Integer>{
 	
 	 
-	public Optional<CurrentAdminSession> findByAdminName(String adminName);
-	public Optional<CurrentAdminSession> findByAdminMobile(String mobileNumber ); 
+	public Optional<CurrentAdminSession> findByName(String adminName);
+	public Optional<CurrentAdminSession> findByMobile(String mobileNumber ); 
 	
 }

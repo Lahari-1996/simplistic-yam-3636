@@ -6,6 +6,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+
+
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
@@ -23,5 +25,7 @@ public class AyushkaamApplication {
 			lvfb.setValidationMessageSource(ms);
 			return lvfb;
 	}
+	
+	
 
 }

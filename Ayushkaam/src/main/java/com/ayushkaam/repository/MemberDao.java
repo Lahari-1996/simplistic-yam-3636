@@ -1,7 +1,6 @@
 package com.ayushkaam.repository;
 
-import java.lang.StackWalker.Option;
-import java.util.Optional;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +17,7 @@ public interface MemberDao extends JpaRepository<Member, Integer>{
 	
 	//public Optional<Member> findByAadharNumber(Long aadharNumber);
 	
-	@Query("select m from Member m where m.idcard.id=(select i.id from Idcard i where i.adharCard.adharNo=?1)")
+	@Query("select m from Member m where m.idcard.id=(select i.id from Idcard i where i.adharCard.aadharNumber=?1)")
 	public Member getByAdharNo(Long aadharNo);
 
 	@Query("select m from Member m where m.idcard.id=(select i.id from Idcard i where i.panCard.panNo=?1)")

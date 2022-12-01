@@ -1,4 +1,4 @@
-package com.masai.serviceImpl;
+package com.ayushkaam.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class AdminServiceImpl implements AdminService{
 	public Admin createAdmin(Admin admin) throws AdminException {
 
 
-		Admin existingUser=adminDao.findByMobileNo(admin.getMobile());
+		Admin existingUser=adminDao.findByMobile(admin.getMobile());
 		if(existingUser==null) {
 			return adminDao.save(admin);
 		}else {

@@ -1,6 +1,6 @@
 package com.ayushkaam.model;
 
-import javax.persistence.Entity;
+
 
 
 public class AdminLogin {

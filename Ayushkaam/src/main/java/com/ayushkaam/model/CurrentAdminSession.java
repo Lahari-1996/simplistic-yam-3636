@@ -19,8 +19,10 @@ public class CurrentAdminSession {
 	@Id
 	@Column(unique = true)
 	
-	private Integer userId;
 	
+	private String name;
+	private Integer userId;
+	private Long mobile;
 	private String uuid;
 	private LocalDateTime localDateTime;
 	

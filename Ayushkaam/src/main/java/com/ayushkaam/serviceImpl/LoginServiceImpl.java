@@ -1,4 +1,4 @@
-package com.masai.serviceImpl;
+package com.ayushkaam.serviceImpl;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -82,7 +82,7 @@ public class LoginServiceImpl implements LoginService{
 	@Override
 	public String logIntoAdmin(AdminLogin adl) throws LoginException {
 		
-     Admin existingUser=adminDao.findByMobileNo(adl.getMobileNo());
+     Admin existingUser=adminDao.findByMobile(adl.getMobileNo());
 		
 		if(existingUser==null) {
 			throw new LoginException("Please enter a valid mobile number");
