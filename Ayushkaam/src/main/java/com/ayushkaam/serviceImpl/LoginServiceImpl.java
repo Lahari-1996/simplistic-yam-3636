@@ -96,9 +96,9 @@ public class LoginServiceImpl implements LoginService{
 		
 		if(existingUser.getPassword().equals(adl.getPassword())) {
 			String key=RandomString.make(6);
-			CurrentAdminSession currentUserSession=new CurrentAdminSession(existingUser.getAdminId(),key,LocalDateTime.now());
-			adminSDao.save(currentUserSession);
-			return currentUserSession.toString();
+			CurrentAdminSession currentAdminSession=new CurrentAdminSession(existingUser.getAdminId(),existingUser.getName(),existingUser.getMobile(),key,LocalDateTime.now());
+			adminSDao.save(currentAdminSession);
+			return currentAdminSession.toString();
 		}else {
 			throw new LoginException("Please Enter a valid password");
 		}

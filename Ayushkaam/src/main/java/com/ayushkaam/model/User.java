@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,7 +20,8 @@ public class User {
 	private Integer userId;
 	@NotNull(message = "Name is mandatory")
 	private String name;
-	@Size(max = 10,min = 10)
+	@NotNull
+	@Pattern(regexp = "[789]{1}[0-9]{9}", message ="Mobile number must be 10 digits")
 	private String mobileNo;
 	@NotNull(message = "Password is mandatory")
 	private String password;
