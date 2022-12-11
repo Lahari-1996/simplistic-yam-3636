@@ -37,7 +37,7 @@ Features:
 
 -> Can check the status
 
-Team Lead : Lahari Pattanayak (fw18_0834).
+Team Lead : Lahari Pattanayak (fw18_0834)
 
 Team Members :
 ***********
